@@ -31,6 +31,10 @@ module SessionsHelper
     user == current_user
   end
 
+  def admin_user?
+    current_user.admin?
+  end
+
   def redirect_back_or(default)
     redirect_to(session[:return_to] || default)
     session.delete(:return_to)

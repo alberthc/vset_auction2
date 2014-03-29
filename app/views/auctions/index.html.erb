@@ -1,0 +1,12 @@
+<% provide(:title, 'Auctions') %>
+<h1>All Auctions</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <%= render @auctions %>
+</ul>
+
+<%= link_to "Create new auction", new_auction_path, class: "btn btn-large btn-primary" %>
+
+<%= will_paginate %>

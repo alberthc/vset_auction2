@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140326051331) do
+ActiveRecord::Schema.define(version: 20140328062706) do
+
+  create_table "auction_stats", force: true do |t|
+    t.integer  "auction_id"
+    t.integer  "funds_raised"
+    t.integer  "funds_goal"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "auctions", force: true do |t|
+    t.integer  "user_id"
+    t.date     "start_time"
+    t.date     "end_time"
+    t.string   "name"
+    t.text     "description"
+    t.string   "banner_image_path"
+    t.boolean  "active",            default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

@@ -1,0 +1,38 @@
+<% provide(:title, 'Create Auction') %>
+<h1>Create Auction</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@auction) do |f| %>
+      <%= render 'shared/auction_error_messages' %>
+  
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+
+      <%= f.label :start_time %>
+      <%= f.date_field :start_time %>
+
+      <%= f.label :end_time %>
+      <%= f.date_field :end_time %>
+
+      <%= f.label :banner_image_path %>
+      <%= f.text_field :banner_image_path %>
+
+      <%= f.label :active %>
+      <%= f.check_box :active %>
+
+      <%= fields_for(@auction_stat) do |a| %>
+      
+      <%= a.label :funds_goal %>
+      <%= a.text_field :funds_goal %>
+
+      <% end %>
+
+      <%= f.submit "Create auction", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
