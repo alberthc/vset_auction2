@@ -1,0 +1,8 @@
+<li>
+  <%= link_to auction_item.name, auction_item %>
+  <% if current_user.admin? %>
+    | <%= link_to "delete", auction_item, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
+</li>
+

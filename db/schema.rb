@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328062706) do
+ActiveRecord::Schema.define(version: 20140330023551) do
+
+  create_table "auction_items", force: true do |t|
+    t.integer  "auction_id"
+    t.string   "image_path"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "min_bid"
+    t.integer  "min_incr",    default: 1
+    t.integer  "category"
+  end
 
   create_table "auction_stats", force: true do |t|
     t.integer  "auction_id"
@@ -29,6 +42,14 @@ ActiveRecord::Schema.define(version: 20140328062706) do
     t.text     "description"
     t.string   "banner_image_path"
     t.boolean  "active",            default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bids", force: true do |t|
+    t.integer  "auction_item_id"
+    t.integer  "user_id"
+    t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

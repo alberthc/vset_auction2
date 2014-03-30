@@ -1,0 +1,11 @@
+<% provide(:title, 'Auction Items') %>
+<h1>All items</h1>
+  
+<%= will_paginate %>
+      
+<ul class="users">
+  <%= render @auction_items %> 
+</ul>
+    
+<%= will_paginate %>
+

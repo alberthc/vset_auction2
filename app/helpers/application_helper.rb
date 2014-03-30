@@ -10,4 +10,14 @@ module ApplicationHelper
     end
   end
 
+#  def current_auction
+#    @current_auction = nil
+#    for auction in Auction.all
+#      if auction.active?
+#        @current_auction = auction
+#        break
+#      end
+#    end
+#  end
+
 end

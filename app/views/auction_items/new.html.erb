@@ -1,0 +1,32 @@
+<% provide(:title, 'Create Auction Item') %>
+<h1>Create Auction Item</h1>
+  
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@auction_item) do |f| %>
+      <%= render 'shared/auction_item_error_messages' %>
+  
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+
+      <%= f.label :image_path %>
+      <%= f.text_field :image_path %>
+
+      <%= f.select(:category, [ ['Please Select', nil], ['Book', AuctionItem::BOOK],
+	['Clothing', AuctionItem::CLOTHING], ['Food', AuctionItem::FOOD],
+	['Music', AuctionItem::MUSIC], ['Servics', AuctionItem::SERVICE],
+        ['Technology', AuctionItem::TECHNOLOGY], ['Other', AuctionItem::OTHER] ]) %>
+
+      <%= f.label :min_bid %>
+      <%= f.text_field :min_bid %>
+
+      <%= f.label :min_incr %>
+      <%= f.text_field :min_incr %>
+    
+      <%= f.submit "Create auction item", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

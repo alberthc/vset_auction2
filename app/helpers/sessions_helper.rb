@@ -4,7 +4,6 @@ module SessionsHelper
     remember_token = User.new_remember_token
     cookies.permanent[:remember_token] = remember_token
     user.update_attribute(:remember_token, User.hash(remember_token))
-    self.current_user = user
   end
 
   def signed_in?
@@ -33,6 +32,21 @@ module SessionsHelper
 
   def admin_user?
     current_user.admin?
+  end
+
+  def current_auction=(auction)
+    @current_auction = auction
+  end
+
+  def current_auction
+    Auction.all.to_a.each do |auction|
+      if auction.active?
+	@current_auction = auction
+	break
+      end 
+    end
+
+    return @current_auction
   end
 
   def redirect_back_or(default)
