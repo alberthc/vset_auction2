@@ -15,8 +15,15 @@
 //= require jquery.ui.datepicker
 //= require bootstrap
 //= require turbolinks
+//= require jquery.countdown
+//= require jquery.countdown-es
 //= require_tree .
+
+<% environment.context_class.instance_eval { include SessionsHelper } %>
 
 $(function() {
   $('.datepicker').datepicker();
 });
+
+var endAuctionTime = <%= current_auction.end_time %> 
+$('#currentAuctionCountdown').countdown({until: endAuctionTime}); 

@@ -1,0 +1,25 @@
+<p>Minimum bid: <%= @auction_item.min_bid %></p>
+<p>Minimum increment: <%= @auction_item.min_incr %></p>
+<p>Current max bid: <%= @max_bid != nil ? @max_bid.amount : 0 %> </p>
+
+<div class="row"> 
+  <div class="span6 offset3">     
+    <%= form_for(@bid) do |f| %>
+      <%= render 'shared/bid_error_messages' %>
+ 
+      <%= f.hidden_field :auction_item_id, value: @auction_item.id %>
+ 
+      <%= f.label :amount %>
+      <%= f.text_field :amount %>
+
+      <%= fields_for(@comment) do |c| %>
+
+      <%= c.label :content, 'Comment:' %>
+      <%= c.text_area :content %>
+
+      <% end %>
+
+      <%= f.submit "Submit bid", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

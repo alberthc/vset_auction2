@@ -16,10 +16,11 @@ class BidsController < ApplicationController
     else
       @bid.errors.add(:amount, "Bid must be at least the minimum and bid must be
 	raised by at least the minimum increment value.")
-      @auction_item_id = @bid.auction_item_id
-      @comments = Comment.where(auction_item_id: @bid.auction_item_id)
+      @auction_item = AuctionItem.where(id: bid_params[:auction_item_id]).first
+      @comments = Comment.where(auction_item: @auction_item)
       #render "/auction_items/#{@auction_item_id}"
-      render 'auction_items/show', auction_item: @bid.auction_item, bid: @bid, comments: @comments
+      render 'auction_items/show', auction_item: @auction_item, bid: @bid,
+				    comments: @comments
     end
   end
 
