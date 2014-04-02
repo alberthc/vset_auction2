@@ -53,6 +53,16 @@ class AuctionItemsController < ApplicationController
     @auction_items = AuctionItem.paginate(page: params[:page])
   end
 
+  def category
+    if !params[:id].nil?
+      if params[:id] == AuctionItem::ALL
+        @auction_items = AuctionItem.paginate(page: params[:page])
+      else
+        @auction_items = AuctionItem.where(category: params[:id]).paginate(page: params[:page])
+      end
+    end
+  end
+
   private
 
     def auction_item_params

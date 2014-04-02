@@ -6,11 +6,12 @@ class AuctionItem < ActiveRecord::Base
   validates :user_id, presence: true
   validates :auction_id, presence: true 
   validates :min_bid, numericality: { only_integer: true}
-  validates :min_incr, numericality: { only_integer: true }
+  validates :min_incr, numericality: { only_integer: true, greater_than: 0 }
 
   # Constants
 
   # types
+  ALL = 0
   BOOK = 1
   CLOTHING = 2
   FOOD = 3

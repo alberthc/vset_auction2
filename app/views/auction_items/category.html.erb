@@ -1,11 +1,11 @@
 <% provide(:title, 'Auction Items') %>
-<h1>All items</h1>
+<h1>Auction Items</h1>
 
 <%= render 'shared/category_menu' %>
-  
+
 <%= will_paginate %>
       
-<ul class="users">
+<ul class="users"> 
   <%= render @auction_items %> 
 </ul>
     
