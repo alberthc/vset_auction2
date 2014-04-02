@@ -14,7 +14,35 @@
       <%= f.label :amount %>
       <%= f.text_field :amount %>
 
+      <%= fields_for(@comment) do |c| %>
+
+      <%= c.label :content, 'Comment:' %>
+      <%= c.text_area :content %>
+
+      <% end %>
+
       <%= f.submit "Submit bid", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
+</div>
+<div class = "row">
+  <ol class="comments">
+  <% if !@comments.nil? %>
+    <% for comment in @comments %>
+      <li> 
+	<span class="user-name-comment"><%= comment.user.name %> says:</span>
+	<span class="content"><%= comment.content %></span>
+	<span class="timestamp">
+	  Posted <%= time_ago_in_words(comment.created_at) %> ago.
+	</span>
+	<span class="delete-comment">
+	  <% if current_user.admin? || current_user == comment.user %>
+	    <%= link_to "delete comment", comment, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+	  <% end %>
+	</span>
+      </li>
+    <% end %>
+  <% end %> 
+  </ol>
 </div>

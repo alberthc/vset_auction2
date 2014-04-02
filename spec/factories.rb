@@ -22,4 +22,15 @@ FactoryGirl.define do
       active true
     end
   end
+
+  factory :auction_item do
+    name "Example Item"
+    description "this is the description."
+    image_path "image path"
+    category 3
+    min_bid 30
+    min_incr 5
+    user
+    auction
+  end
 end

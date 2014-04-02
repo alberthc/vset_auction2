@@ -2,6 +2,7 @@ class AuctionItem < ActiveRecord::Base
   belongs_to :auction
   has_many :bids
   belongs_to :user
+  has_many :comments
 
   validates :user_id, presence: true
   validates :auction_id, presence: true 

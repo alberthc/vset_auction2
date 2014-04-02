@@ -25,8 +25,9 @@ class AuctionItemsController < ApplicationController
   def show
     @auction_item = AuctionItem.find(params[:id])
     @bid = Bid.new
-    current_auction_item = @auction_item
     @max_bid = get_max_bid(@auction_item.id)
+    @comment = Comment.new
+    @comments = Comment.where(auction_item_id: @auction_item.id)
   end
 
   def edit

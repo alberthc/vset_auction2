@@ -4,6 +4,7 @@ VsetAuction2::Application.routes.draw do
   resources :auctions
   resources :auction_items
   resources :bids, only: [:new, :create]
+  resources :comments, only: [:destroy]
 
   root 'static_pages#home'
 

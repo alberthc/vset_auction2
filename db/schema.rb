@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140330023551) do
+ActiveRecord::Schema.define(version: 20140402022137) do
 
   create_table "auction_items", force: true do |t|
     t.integer  "auction_id"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 20140330023551) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "auction_item_id"
+  end
+
+  add_index "comments", ["user_id", "created_at"], name: "index_comments_on_user_id_and_created_at"
 
   create_table "users", force: true do |t|
     t.string   "name"
