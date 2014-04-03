@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+# Ignore security sensitive files
+/config/initializers/s3_constants.rb
+
 # Ignore other unneeded files.
 database.yml
 doc/
