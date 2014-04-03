@@ -1,8 +1,11 @@
 <% provide(:title, 'Auction Items') %>
 <h1>Auction Items</h1>
 
-<%= render 'shared/category_menu' %>
+<div class="span2">
+  <%= render 'shared/category_menu' %>
+</div>
 
+<div class="span6">
 <%= will_paginate %>
       
 <ul class="users"> 
@@ -10,4 +13,4 @@
 </ul>
     
 <%= will_paginate %>
-
+</div>
