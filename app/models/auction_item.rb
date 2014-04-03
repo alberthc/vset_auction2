@@ -15,7 +15,8 @@ class AuctionItem < ActiveRecord::Base
       thumb: '100x100>',
       square: '200x200#',
       medium: '300x300>'
-    }
+    },
+    :default_url => 'https://s3-us-west-2.amazonaws.com/vsetauction/auction_items/images/:attachment/missing_:style.jpg'
   else
     has_attached_file :image,
       styles: {
