@@ -15,7 +15,7 @@ class AuctionItem < ActiveRecord::Base
       thumb: '100x100>',
       square: '200x200#',
       medium: '300x300>'
-    },
+    }
   else
     has_attached_file :image,
       styles: {
