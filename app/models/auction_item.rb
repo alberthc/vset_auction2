@@ -15,7 +15,8 @@ class AuctionItem < ActiveRecord::Base
       thumb: '100x100>',
       square: '200x200#',
       medium: '300x300>'
-    }
+    },
+    :default_url => '/assets/missing_:style.jpg'
   else
     has_attached_file :image,
       styles: {
@@ -23,6 +24,7 @@ class AuctionItem < ActiveRecord::Base
 	square: '200x200#',
 	medium: '300x300>'
       },
+      :default_url => '/assets/missing_:style.jpg',
       :storage => :s3,
       :bucket => S3_BUCKET_NAME,
       :s3_credentials => {
