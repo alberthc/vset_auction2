@@ -1,5 +1,7 @@
 <% provide(:title, @auction_item.name) %>
 
+<%= image_tag @auction_item.image.url(:medium) %>
+
 <% if Time.now < current_auction.end_time %>
   <%= render 'create_form' %>
 <% else %>

@@ -1,4 +1,5 @@
 <li>
+  <%= image_tag auction_item.image.url(:thumb) %>
   <%= link_to auction_item.name, auction_item %>
   <% if current_user == auction_item.user %>
     | <%= link_to "edit", edit_auction_item_path(auction_item) %>

@@ -1,6 +1,6 @@
 <% provide(:title, 'Create Auction Item') %>
 <h1>Create Auction Item</h1>
-  
+ 
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@auction_item) do |f| %>
@@ -12,8 +12,8 @@
       <%= f.label :description %>
       <%= f.text_area :description %>
 
-      <%= f.label :image_path %>
-      <%= f.text_field :image_path %>
+      <%= f.label :image %>
+      <%= f.file_field :image %>
 
       <%= f.select(:category, [ ['Please Select', nil], ['Book', AuctionItem::BOOK],
 	['Clothing', AuctionItem::CLOTHING], ['Food', AuctionItem::FOOD],

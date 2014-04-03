@@ -67,7 +67,7 @@ class AuctionItemsController < ApplicationController
   private
 
     def auction_item_params
-      params.require(:auction_item).permit(:name, :description, :image_path,
+      params.require(:auction_item).permit(:name, :description, :image,
 				:category, :min_bid, :min_incr)
     end
 
