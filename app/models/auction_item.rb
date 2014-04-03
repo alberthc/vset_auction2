@@ -16,7 +16,7 @@ class AuctionItem < ActiveRecord::Base
       square: '200x200#',
       medium: '300x300>'
     },
-    :default_url => '/assets/missing_:style.jpg'
+    :default_url => '/images/:attachment/missing_:style.jpg'
   else
     has_attached_file :image,
       styles: {
