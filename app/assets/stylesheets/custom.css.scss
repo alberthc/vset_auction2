@@ -214,3 +214,9 @@ input {
   margin-top: 45px;
   @include box_sizing;
 }
+
+/* grid */
+.grid-border {
+	border:1px solid grey;
+	margin:1px;
+}

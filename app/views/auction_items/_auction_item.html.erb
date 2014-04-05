@@ -1,12 +1,15 @@
-<li>
-  <%= image_tag auction_item.image.url(:thumb) %>
-  <%= link_to auction_item.name, auction_item %>
-  <% if current_user == auction_item.user %>
-    | <%= link_to "edit", edit_auction_item_path(auction_item) %>
-  <% end %>
-  <% if current_user.admin? %>
-    | <%= link_to "delete", auction_item, method: :delete,
-                                  data: { confirm: "You sure?" } %>
-  <% end %>
-</li>
+<div class="col-md-4 grid-border" style="width:33%">
+	<div class="row text-center">
+		<%= image_tag auction_item.image.url(:thumb) %>
+	</div>
+	<div class="row text-center">
+		<%= link_to auction_item.name, auction_item %>
+		<% if current_user == auction_item.user %>
+			| <%= link_to "edit", edit_auction_item_path(auction_item) %>
+		<% end %>
+		<% if current_user.admin? %>
+			| <%= link_to "delete", auction_item, method: :delete, data: { confirm: "You sure?" } %>
+		<% end %>
+	</div>
+</div>
 
