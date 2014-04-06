@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140402051118) do
+ActiveRecord::Schema.define(version: 20140406084303) do
 
   create_table "auction_items", force: true do |t|
     t.integer  "auction_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20140402051118) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "max_bid"
   end
 
   create_table "auction_stats", force: true do |t|

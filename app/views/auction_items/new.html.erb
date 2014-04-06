@@ -6,7 +6,7 @@
     <%= form_for(@auction_item) do |f| %>
       <%= render 'shared/auction_item_error_messages' %>
   
-      <%= f.label :name %>
+      <%= f.label :name, 'Name of Item:' %>
       <%= f.text_field :name %>
     
       <%= f.label :description %>
@@ -15,15 +15,15 @@
       <%= f.label :image %>
       <%= f.file_field :image %>
 
-      <%= f.select(:category, [ ['Please Select', nil], ['Book', AuctionItem::BOOK],
+      <%= f.select(:category, [ ['Please Select', nil], ['Books', AuctionItem::BOOK],
 	['Clothing', AuctionItem::CLOTHING], ['Food', AuctionItem::FOOD],
-	['Music', AuctionItem::MUSIC], ['Servics', AuctionItem::SERVICE],
+	['Music', AuctionItem::MUSIC], ['Services', AuctionItem::SERVICE],
         ['Technology', AuctionItem::TECHNOLOGY], ['Other', AuctionItem::OTHER] ]) %>
 
-      <%= f.label :min_bid %>
+      <%= f.label :min_bid , 'Minimum bid:' %>
       <%= f.text_field :min_bid %>
 
-      <%= f.label :min_incr %>
+      <%= f.label :min_incr, 'Minimum increment value:' %>
       <%= f.text_field :min_incr %>
     
       <%= f.submit "Create auction item", class: "btn btn-large btn-primary" %>

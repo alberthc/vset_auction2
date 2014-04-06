@@ -4,13 +4,14 @@
       <% if !signed_in? %>
 	<%= link_to "vset auction", root_path, id: "logo" %>
       <% else %>
-	<%= link_to "vset auction", auction_items_path, id: "logo" %>
+	<%= link_to "vset auction", current_auction, id: "logo" %>
       <% end %>
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home",    root_path %></li>
           <li><%= link_to "Help",    help_path %></li>
 	  <% if signed_in? %>
+	    <li><%= link_to "View Items", auction_items_path %></li>
 	    <% if admin_user? %>
 	      <li><%= link_to "Auctions", auctions_path %></li>
 	    <% end %>

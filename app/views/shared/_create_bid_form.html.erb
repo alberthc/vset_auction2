@@ -1,9 +1,5 @@
-<p>Minimum bid: <%= @auction_item.min_bid %></p>
-<p>Minimum increment: <%= @auction_item.min_incr %></p>
-<p>Current max bid: <%= @max_bid != nil ? @max_bid.amount : 0 %> </p>
-
 <div class="row"> 
-  <div class="span6 offset3">     
+  <div class="span6">     
     <%= form_for(@bid) do |f| %>
       <%= render 'shared/bid_error_messages' %>
  

@@ -1,11 +1,35 @@
 <% provide(:title, @auction_item.name) %>
 
-<%= image_tag @auction_item.image.url(:medium) %>
+<div class="container">
+  <div class="row">
+    <h1><%= @auction_item.name %></h1>
+  </div>
+  <div class="row">
+    <div class="span4">
+      <%= image_tag @auction_item.image.url(:medium) %>
+    </div>
+    <div class="span8">
+      <p><%= @auction_item.description %></p>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <p>Posted by: <%= @auction_item.user.name %></p>
+    <p>Minimum bid: $<%= @auction_item.min_bid %></p>
+    <p>Minimum increment: $<%= @auction_item.min_incr %></p>
+    <% if @max_bid.nil? %>
+      <p>No bids yet</p>
+    <% else %>
+      <p>Bid to beat: $<%= @max_bid.amount %> by <%= @max_bid.user.name %></p>
+    <% end %>
+  </div>
+  <div class="row">
+    <% if DateTime.now.to_date < current_auction.end_time %>
+      <%= render 'shared/create_bid_form' %>
+    <% else %>
+      <%= render 'stats' %>
+    <% end %>
+  </div>
 
-<% if DateTime.now.to_date < current_auction.end_time %>
-  <%= render 'create_form' %>
-<% else %>
-  <%= render 'stats' %>
-<% end %>
-
-<%= render 'comments' %>
+  <%= render 'shared/comments' %>
+</div>

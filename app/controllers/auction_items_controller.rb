@@ -25,7 +25,10 @@ class AuctionItemsController < ApplicationController
   def show
     @auction_item = AuctionItem.find(params[:id])
     @bid = Bid.new
+
     @max_bid = get_max_bid(@auction_item.id)
+    @max_bid_user = @max_bid.user
+
     @comment = Comment.new
     @comments = Comment.where(auction_item_id: @auction_item.id)
   end
@@ -56,6 +59,7 @@ class AuctionItemsController < ApplicationController
 
   def category
     if !params[:id].nil?
+      @category_name = "Category" #get_category_name(params[:id])
       if params[:id] == AuctionItem::ALL
         @auction_items = AuctionItem.paginate(page: params[:page])
       else
@@ -69,6 +73,25 @@ class AuctionItemsController < ApplicationController
     def auction_item_params
       params.require(:auction_item).permit(:name, :description, :image,
 				:category, :min_bid, :min_incr)
+    end
+
+    def get_category_name(id)
+      case id
+      when AuctionItem::BOOK
+	return "Book"
+      when AuctionItem::CLOTHING
+	return "Clothing"
+      when AuctionItem::FOOD
+	return "Food"
+      when AuctionItem::MUSIC
+	return "Music"
+      when AuctionItem::SERVICE
+	return "Services"
+      when AuctionItem::TECHNOLOGY
+	return "Technology"
+      else
+	return "Other"
+      end
     end
 
     # Before filters
