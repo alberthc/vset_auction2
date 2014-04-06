@@ -1,16 +1,16 @@
 <% provide(:title, 'Auction Items') %>
-<h1>All Items</h1>
+<h1>All items</h1>
 
 <div class="span2">
   <%= render 'shared/category_menu' %>
 </div>
 
-<div class="span12">  
-	<%= will_paginate %>
-	<div class="container-fluid">
-		<div class="row">
-			<%= render @auction_items %> 
-		</div>
-	<div class="container-fluid">
-    <%= will_paginate %>
+<div class="span6">  
+  <%= will_paginate %>
+      
+  <ul class="users">
+    <%= render @auction_items %> 
+  </ul>
+    
+  <%= will_paginate %>
 </div>
