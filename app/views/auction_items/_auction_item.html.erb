@@ -1,8 +1,10 @@
 <div class="col-md-4 grid-border" style="width:33%">
-	<div class="row text-center">
-		<%= image_tag auction_item.image.url(:thumb) %>
+	<div class="row text-center" style="margin-top:5px;">
+		<a href="#" data-toggle="modal" data-target="#<%= auction_item.id %>">
+			<%= image_tag auction_item.image.url(:thumb) %>
+		</a>
 	</div>
-	<div class="row text-center">
+	<div class="row text-center" style="margin-bottom:5px;">
 		<%= link_to auction_item.name, auction_item %>
 		<% if current_user == auction_item.user %>
 			| <%= link_to "edit", edit_auction_item_path(auction_item) %>
@@ -11,5 +13,25 @@
 			| <%= link_to "delete", auction_item, method: :delete, data: { confirm: "You sure?" } %>
 		<% end %>
 	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="<%= auction_item.id %>" style="margin-left:auto; margin-right:auto; width:50%;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"><%= auction_item.name %></h4>
+				</div>
+				<div class="modal-body">
+					<%= auction_item.name %>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
 </div>
 
