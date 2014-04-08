@@ -2,6 +2,7 @@ class AuctionItemsController < ApplicationController
   include AuctionItemsHelper
 
   before_action :signed_in_user, only: [:new, :edit, :update, :destroy]
+  
 
   def new
     @auction_item = AuctionItem.new
@@ -27,7 +28,10 @@ class AuctionItemsController < ApplicationController
     @bid = Bid.new
 
     @max_bid = get_max_bid(@auction_item.id)
-    @max_bid_user = @max_bid.user
+    
+    if !@max_bid.nil?
+      @max_bid_user = @max_bid.user
+    end
 
     @comment = Comment.new
     @comments = Comment.where(auction_item_id: @auction_item.id)
@@ -62,8 +66,10 @@ class AuctionItemsController < ApplicationController
       @category_name = "Category" #get_category_name(params[:id])
       if params[:id] == AuctionItem::ALL
         @auction_items = AuctionItem.paginate(page: params[:page])
+	render 'index'
       else
         @auction_items = AuctionItem.where(category: params[:id]).paginate(page: params[:page])
+	render 'index'
       end
     end
   end
@@ -100,6 +106,12 @@ class AuctionItemsController < ApplicationController
       unless signed_in?
         store_location
         redirect_to signin_url, notice: "Please sign in."
+      end
+    end
+
+    def auction_over
+      if DateTime.now.to_date < current_auction.end_time
+	redirect_to auction_items_path
       end
     end
 

@@ -11,6 +11,8 @@ class BidsController < ApplicationController
 
     if validate_bid?(@bid, @max_bid) && @bid.save
       @comment.save
+      @bid.auction_item.max_bid = @bid.amount
+      @bid.auction_item.save
       flash[:success] = "Bid submitted!"
       redirect_to @bid.auction_item
     else

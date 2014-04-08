@@ -20,10 +20,3 @@
 //= require_tree .
 
 <% environment.context_class.instance_eval { include SessionsHelper } %>
-
-$(function() {
-  $('.datepicker').datepicker();
-});
-
-var endAuctionTime = <%= current_auction.end_time %> 
-$('#currentAuctionCountdown').countdown({until: endAuctionTime}); 
