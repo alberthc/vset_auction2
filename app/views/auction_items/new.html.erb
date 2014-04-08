@@ -20,12 +20,19 @@
 	['Music', AuctionItem::MUSIC], ['Services', AuctionItem::SERVICE],
         ['Technology', AuctionItem::TECHNOLOGY], ['Other', AuctionItem::OTHER] ]) %>
 
-      <%= f.label :min_bid , 'Minimum bid:' %>
-      <%= f.text_field :min_bid %>
+	<%= f.label :min_bid , 'Minimum bid:' %>
+      <div class="input-prepend">   
+	<span class="add-on">$</span>
+	<%= f.text_field :min_bid %>
+      </div>
 
       <%= f.label :min_incr, 'Minimum increment value:' %>
+      <div class="input-prepend">   
+	<span class="add-on">$</span>
       <%= f.text_field :min_incr %>
-    
+      </div>
+      <br/>
+ 
       <%= f.submit "Create auction item", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

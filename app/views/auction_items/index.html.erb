@@ -1,16 +1,29 @@
 <% provide(:title, 'Auction Items') %>
-<h1>All items</h1>
+<h1>Auction Items</h1>
 
 <div class="span2">
   <%= render 'shared/category_menu' %>
 </div>
 
-<div class="span6">  
+<div class="span8">  
   <%= will_paginate %>
-      
-  <ul class="users">
-    <%= render @auction_items %> 
-  </ul>
+  
+  <table class="table table-hover">
+    <thead>
+      <tr>
+	<td>Item</td>
+	<td>Offered by</td>
+	<td># of bids</td>
+	<td>Current bid</td>
+	<td></td>
+      </tr>
+    </thead>
+    <tbody>
+    <% @auction_items.each do |auction_item| %>
+      <%= render 'auction_item', auction_item: auction_item %>
+    <% end %>
+    </tbody>
+  </table>   
     
   <%= will_paginate %>
 </div>
