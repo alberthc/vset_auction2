@@ -44,8 +44,6 @@ class BidsController < ApplicationController
       if bid == nil || bid.amount == nil
 	bid.errors.add(:amount, "Must enter bid")
 	return false
-      elsif max_bid == nil
-	return true
       end
 
       @auction_item = bid.auction_item
@@ -53,12 +51,20 @@ class BidsController < ApplicationController
       if @auction_item == nil
 	bid.errors.add(:auction_item, "Not associated with auction item")
 	return false
+      elsif max_bid == nil
+	if bid.amount >= @auction_item.min_bid
+	  return true
+	else
+	  return false
+	end
       end
 
       if bid.amount >= @auction_item.min_bid &&
 	bid.amount >= max_bid.amount + @auction_item.min_incr
 	return true
       end
+
+      return false
     end
 
 end
