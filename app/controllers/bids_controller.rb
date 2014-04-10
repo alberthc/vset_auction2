@@ -6,19 +6,20 @@ class BidsController < ApplicationController
     
     @max_bid = get_max_bid(@bid.auction_item_id)
 
-    @comment = @bid.auction_item.comments.build(comment_params)
-    @comment.user = current_user
-
     if validate_bid?(@bid, @max_bid) && @bid.save
-      @comment.save
       @bid.auction_item.max_bid = @bid.amount
       @bid.auction_item.save
       flash[:success] = "Bid submitted!"
       redirect_to @bid.auction_item
+
+      @comment = @bid.auction_item.comments.build(comment_params)
+      @comment.user = current_user
+      @comment.save
     else
       @bid.errors.add(:amount, "Bid must be at least the minimum and bid must be
 	raised by at least the minimum increment value.")
       @auction_item = AuctionItem.where(id: bid_params[:auction_item_id]).first
+      @comment = Comment.new
       @comments = Comment.where(auction_item: @auction_item)
       #render "/auction_items/#{@auction_item_id}"
       render 'auction_items/show', auction_item: @auction_item, bid: @bid,
