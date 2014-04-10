@@ -58,17 +58,17 @@ class AuctionItemsController < ApplicationController
   end
 
   def index
-    @auction_items = AuctionItem.paginate(page: params[:page])
+    @auction_items = AuctionItem.paginate(page: params[:page], per_page: 20).order('id DESC')
   end
 
   def category
     if !params[:id].nil?
       @category_name = "Category" #get_category_name(params[:id])
       if params[:id] == AuctionItem::ALL
-        @auction_items = AuctionItem.paginate(page: params[:page])
+        @auction_items = AuctionItem.paginate(page: params[:page], per_page: 20).order('id DESC')
 	render 'index'
       else
-        @auction_items = AuctionItem.where(category: params[:id]).paginate(page: params[:page])
+        @auction_items = AuctionItem.where(category: params[:id]).paginate(page: params[:page], per_page: 20).order('id DESC')
 	render 'index'
       end
     end
