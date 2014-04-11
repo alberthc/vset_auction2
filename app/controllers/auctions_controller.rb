@@ -8,6 +8,17 @@ class AuctionsController < ApplicationController
 
   def show
     @auction = Auction.find(params[:id])
+    @auction_items = @auction.auction_items
+    @bids = Bid.all
+    @total_pledged = 0
+    @total_unpledged = 0
+    for auction_item in @auction_items
+      if !auction_item.max_bid.nil?
+	@total_pledged += auction_item.max_bid
+      else
+	@total_unpledged += auction_item.min_bid
+      end
+    end
   end
 
   def create
