@@ -9,6 +9,28 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @my_items = @user.auction_items.paginate(page: params[:page],
+	per_page: 10).order('LOWER(name) ASC')
+    if !@user.bids.nil?
+      @bids = @user.bids.order('id DESC')
+
+      @following_items = Array.new
+      @my_bids = Array.new
+      @bids.each do |bid|
+	@auction_item = bid.auction_item
+	if !@following_items.include? @auction_item
+	  @following_items.push @auction_item
+	  @my_bids.push bid
+	end
+      end
+      @following_items
+
+      ##
+      #@total_pledged = 0
+      #@my_bids.each do |bid|
+      #	@total_pledged += bid.amount
+      #end
+    end
   end
 
   def create

@@ -9,3 +9,54 @@
     </section>
   </aside>
 </div>
+<div class="row">
+  <h2>My Items</h2>
+  <% if !@my_items.nil? %>
+  <%= will_paginate @my_items %>
+  
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td>Item</td>
+        <td># of bids</td>
+        <td>Current bid</td>
+        <td>Bidder</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+    <% @my_items.each do |auction_item| %>
+      <%= render 'my_items', auction_item: auction_item %>
+    <% end %>
+    </tbody>
+  </table>   
+    
+  <%= will_paginate @my_items %>
+  <% end %>
+</div>
+<div class="row">
+  <h2>Items Bid On</h2>
+  <% if !@following_items.nil? && !@following_items.empty? %>
+  
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td>Item</td>
+        <td>Offered by</td>
+        <td># of bids</td>
+        <td>Current bid</td>
+        <td>Bidder</td>
+	<td>My bid</td>
+      </tr>
+    </thead>
+    <tbody>
+    <% @following_items.each do |auction_item| %>
+      <% if !auction_item.nil? %>
+	<%= render 'following_items', auction_item: auction_item %>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>   
+    
+  <% end %>
+</div> 
