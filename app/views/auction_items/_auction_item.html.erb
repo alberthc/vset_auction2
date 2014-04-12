@@ -16,7 +16,7 @@
   <%= auction_item.bids.first.nil? ? "" : auction_item.bids.last.user.name %>
 </td>
 <td>  
-  <% if current_user == auction_item.user %>
+  <% if current_user == auction_item.user || current_user.admin? %>
     | <%= link_to "edit", edit_auction_item_path(auction_item) %>
   <% end %>
   <% if current_user.admin? %>

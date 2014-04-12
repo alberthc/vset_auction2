@@ -15,9 +15,9 @@
       <%= f.label :image %>
       <%= f.file_field :image %>
 
-      <%= f.select(:category, [ ['Please Select', nil], ['Book', AuctionItem::BOOK],
+      <%= f.select(:category, [ ['Please Select', nil], ['Books', AuctionItem::BOOK],
         ['Clothing', AuctionItem::CLOTHING], ['Food', AuctionItem::FOOD],
-        ['Music', AuctionItem::MUSIC], ['Servics', AuctionItem::SERVICE],
+        ['Music', AuctionItem::MUSIC], ['Services', AuctionItem::SERVICE],
         ['Technology', AuctionItem::TECHNOLOGY], ['Other', AuctionItem::OTHER] ]) %>
     
       <%= f.label :min_bid %>

@@ -3,7 +3,7 @@
     <ul class="nav nav-pills nav-stacked span2">  
       <li><%= link_to 'Add Item', new_auction_item_path, class: "btn btn-small"%></li>
       <li><%= link_to 'All', auction_items_path %></li>
-      <li><%= link_to 'Book', category_path(id: AuctionItem::BOOK) %></li>
+      <li><%= link_to 'Books', category_path(id: AuctionItem::BOOK) %></li>
       <li><%= link_to 'Clothing', category_path(id: AuctionItem::CLOTHING) %></li>
       <li><%= link_to 'Food', category_path(id: AuctionItem::FOOD) %></li>
       <li><%= link_to 'Music', category_path(id: AuctionItem::MUSIC) %></li>
