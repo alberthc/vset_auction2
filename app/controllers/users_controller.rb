@@ -31,6 +31,11 @@ class UsersController < ApplicationController
       #	@total_pledged += bid.amount
       #end
     end
+
+    @user_name_header = @user.name + "'s"
+    if @user == current_user
+      @user_name_header = "My"
+    end
   end
 
   def create

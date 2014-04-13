@@ -10,7 +10,7 @@
   </aside>
 </div>
 <div class="row">
-  <h2>My Items</h2>
+  <h2><%= @user_name_header %> Items Posted</h2>
   <% if !@my_items.nil? %>
   <%= will_paginate @my_items %>
   
@@ -35,7 +35,7 @@
   <% end %>
 </div>
 <div class="row">
-  <h2>Items Bid On</h2>
+  <h2><%= @user_name_header %> bids</h2>
   <% if !@following_items.nil? && !@following_items.empty? %>
   
   <table class="table table-hover">
@@ -46,7 +46,7 @@
         <td># of bids</td>
         <td>Current bid</td>
         <td>Bidder</td>
-	<td>My bid</td>
+	<td><%= @user_name_header %> bid</td>
       </tr>
     </thead>
     <tbody>

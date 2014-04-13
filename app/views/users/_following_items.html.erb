@@ -1,4 +1,4 @@
-<% if !auction_item.bids.first.nil? && auction_item.bids.last.user == current_user %>
+<% if !auction_item.bids.first.nil? && auction_item.bids.last.user == @user %>
   <tr style="height:100px; overflow:hidden;">
 <% else %>
   <tr class="error" style="height:100px; overflow:hidden;">
@@ -20,6 +20,6 @@
   <%= auction_item.bids.first.nil? ? "" : auction_item.bids.last.user.name %>
 </td>
 <td>
-  $<%= Bid.where(auction_item: auction_item, user: current_user).last.amount %>
+  $<%= Bid.where(auction_item: auction_item, user: @user).last.amount %>
 </td>
 </tr>
