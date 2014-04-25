@@ -1,6 +1,8 @@
 class BidsController < ApplicationController
   include AuctionItemsHelper
 
+  before_action :auction_over, only: [:create]
+
   def create
     @bid = current_user.bids.build(bid_params)
     
@@ -66,6 +68,14 @@ class BidsController < ApplicationController
       end
 
       return false
+    end
+
+    # Before filters
+
+    def auction_over
+      if DateTime.now.to_date >= current_auction.end_time
+        redirect_to :back
+      end
     end
 
 end

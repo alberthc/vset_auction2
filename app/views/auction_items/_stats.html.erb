@@ -1,4 +1,4 @@
 <% provide(:title, @auction_item.name) %>
 
-<p>Winner: <%= @max_bid != nil ? @max_bid.user.name : "" %></p>
-<p>Final Amount: <%= @max_bid != nil ? @max_bid.amount : 0 %></p>
+<p style="font-weight: bold">Winner: <%= @max_bid != nil ? @max_bid.user.name : "" %></p>
+<p style="font-weight: bold">Final Amount: $<%= @max_bid != nil ? @max_bid.amount : 0 %></p>

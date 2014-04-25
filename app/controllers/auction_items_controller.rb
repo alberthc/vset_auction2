@@ -2,7 +2,7 @@ class AuctionItemsController < ApplicationController
   include AuctionItemsHelper
 
   before_action :signed_in_user, only: [:new, :edit, :update, :destroy]
-  
+  before_action :auction_over, only: [:new, :edit, :update, :destroy, :create]
 
   def new
     @auction_item = AuctionItem.new
@@ -110,8 +110,8 @@ class AuctionItemsController < ApplicationController
     end
 
     def auction_over
-      if DateTime.now.to_date < current_auction.end_time
-	redirect_to auction_items_path
+      if DateTime.now.to_date >= current_auction.end_time
+	redirect_to :back
       end
     end
 
