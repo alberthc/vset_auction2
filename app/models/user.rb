@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :auction_items
   has_many :bids
   has_many :comments
+  has_one :user_info
 
   before_save { self.email = email.downcase }
   before_create :create_remember_token

@@ -12,9 +12,25 @@ class AuctionsController < ApplicationController
     @bids = Bid.all
     @total_pledged = 0
     @total_unpledged = 0
+
+    # TODO: fix this later - don't hardcode school totals
+    @total_USC = 0
+    @total_UCLA = 0
+    @total_UCI = 0
     for auction_item in @auction_items
-      if !auction_item.max_bid.nil?
+      @max_bid = auction_item.max_bid
+      if !@max_bid.nil?
 	@total_pledged += auction_item.max_bid
+	@school = auction_item.bids.last.user.user_info.school
+	if !@school.nil?
+	  if @school == UserInfo::USC
+	    @total_USC += auction_item.max_bid
+	  elsif @school == UserInfo::UCLA
+	    @total_UCLA += auction_item.max_bid
+	  elsif @school == UserInfo::UCI
+	    @total_UCI += auction_item.max_bid
+	  end
+	end
       else
 	@total_unpledged += auction_item.min_bid
       end
