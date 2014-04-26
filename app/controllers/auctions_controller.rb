@@ -21,14 +21,20 @@ class AuctionsController < ApplicationController
       @max_bid = auction_item.max_bid
       if !@max_bid.nil?
 	@total_pledged += auction_item.max_bid
-	@school = auction_item.bids.last.user.user_info.school
-	if !@school.nil?
-	  if @school == UserInfo::USC
-	    @total_USC += auction_item.max_bid
-	  elsif @school == UserInfo::UCLA
-	    @total_UCLA += auction_item.max_bid
-	  elsif @school == UserInfo::UCI
-	    @total_UCI += auction_item.max_bid
+	@user = auction_item.bids.last.user
+	if !@user.nil?
+	  @user_info = @user.user_info
+	  if !@user_info.nil?
+	    @school = auction_item.bids.last.user.user_info.school
+	    if !@school.nil?
+	      if @school == UserInfo::USC
+		@total_USC += auction_item.max_bid
+	      elsif @school == UserInfo::UCLA
+		@total_UCLA += auction_item.max_bid
+	      elsif @school == UserInfo::UCI
+		@total_UCI += auction_item.max_bid
+	      end
+	    end
 	  end
 	end
       else
