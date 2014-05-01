@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 	@following_items.each do |auction_item|
 	  if !auction_item.nil? && !auction_item.bids.first.nil?
 	    if auction_item.bids.last.user == @user
-	      @total_pledged = auction_item.max_bid
+	      @total_pledged += auction_item.max_bid
 	    end
 	  end
 	end
