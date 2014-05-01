@@ -23,13 +23,18 @@ class UsersController < ApplicationController
 	  @my_bids.push bid
 	end
       end
-      @following_items
 
-      ##
-      #@total_pledged = 0
-      #@my_bids.each do |bid|
-      #	@total_pledged += bid.amount
-      #end
+      @total_pledged = 0
+
+      if !@following_items.nil? && !@following_items.empty?
+	@following_items.each do |auction_item|
+	  if !auction_item.nil? && !auction_item.bids.first.nil?
+	    if auction_item.bids.last.user == @user
+	      @total_pledged = auction_item.max_bid
+	    end
+	  end
+	end
+      end
     end
 
     @user_name_header = @user.name + "'s"
