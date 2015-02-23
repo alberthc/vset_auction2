@@ -14,7 +14,7 @@
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
-    <% if DateTime.now.to_date >= current_auction.end_time %>
+    <% if current_auction != nil && DateTime.now.to_date >= current_auction.end_time %>
       <h2 style="color: red;">Auction is OVER!</h2>
       <h3 style="color: red;">Please give money to: USC - Ethan Chan, UCLA - Paul Lee, UCI - Caleb Molitoris by Sunday May 4th</h2>
       <h3 style="color: red;">Please bring items offered to church by Sunday May 4th (unless special arrangements made)</h3>
