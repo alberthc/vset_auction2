@@ -41,8 +41,8 @@ module SessionsHelper
   def current_auction
     Auction.all.to_a.each do |auction|
       if auction.active?
-	@current_auction = auction
-	break
+        @current_auction = auction
+        break
       end 
     end
 

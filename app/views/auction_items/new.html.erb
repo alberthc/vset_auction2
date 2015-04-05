@@ -16,19 +16,19 @@
       <%= f.file_field :image %>
 
       <%= f.select(:category, [ ['Please Select', nil], ['Books', AuctionItem::BOOK],
-	['Clothing', AuctionItem::CLOTHING], ['Food', AuctionItem::FOOD],
-	['Music', AuctionItem::MUSIC], ['Services', AuctionItem::SERVICE],
+        ['Clothing', AuctionItem::CLOTHING], ['Food', AuctionItem::FOOD],
+        ['Music', AuctionItem::MUSIC], ['Services', AuctionItem::SERVICE],
         ['Technology', AuctionItem::TECHNOLOGY], ['Other', AuctionItem::OTHER] ]) %>
 
-	<%= f.label :min_bid , 'Minimum bid:' %>
+      <%= f.label :min_bid , 'Minimum bid:' %>
       <div class="input-prepend">   
-	<span class="add-on">$</span>
-	<%= f.text_field :min_bid %>
+      <span class="add-on">$</span>
+      <%= f.text_field :min_bid %>
       </div>
 
       <%= f.label :min_incr, 'Minimum increment value:' %>
       <div class="input-prepend">   
-	<span class="add-on">$</span>
+      <span class="add-on">$</span>
       <%= f.text_field :min_incr %>
       </div>
       <br/>

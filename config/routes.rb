@@ -14,6 +14,7 @@ VsetAuction2::Application.routes.draw do
   match '/help',      to: 'static_pages#help',	  via: 'get'
   match '/about',     to: 'static_pages#about',	  via: 'get'
   match '/contact',   to: 'static_pages#contact', via: 'get'
+  match '/no-auction',   to: 'static_pages#no_auction', via: 'get'
   match '/category',  to: 'auction_items#category', via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.

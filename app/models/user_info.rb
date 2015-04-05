@@ -6,5 +6,6 @@ class UserInfo < ActiveRecord::Base
   USC = "USC"
   UCLA = "UCLA"
   UCI = "UCI"
+  OTHER = "Other"
 
 end

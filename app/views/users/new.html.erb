@@ -12,6 +12,15 @@
       <%= f.label :email %>
       <%= f.text_field :email %>
 
+      <%= fields_for(@user_info) do |ui| %>
+
+      <br/>
+      <%= ui.label :school, 'School' %>
+      <%= ui.select :school, [[UserInfo::USC, UserInfo::USC], [UserInfo::UCLA, UserInfo::UCLA],
+        [UserInfo::UCI, UserInfo::UCI], [UserInfo::OTHER, UserInfo::OTHER]] %>
+
+      <% end %>
+
       <%= f.label :password %>
       <%= f.password_field :password %>
 

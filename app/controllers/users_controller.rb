@@ -5,35 +5,47 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user_info = UserInfo.new
   end
 
   def show
     @user = User.find(params[:id])
-    @my_items = @user.auction_items.paginate(page: params[:page],
-	per_page: 10).order('LOWER(name) ASC')
+    @user_info = @user.user_info
+
+    if @user_info.nil?
+      @user_info = UserInfo.new
+    end
+
+    if !@user.auction_items.nil?
+      @my_items = @user.auction_items.paginate(page: params[:page], per_page: 10).where(auction_id: current_auction.id).order('LOWER(name) ASC')
+    end
+
     if !@user.bids.nil?
       @bids = @user.bids.order('id DESC')
 
+      # Following items are AuctionItems that the user has bid on 
       @following_items = Array.new
       @my_bids = Array.new
       @bids.each do |bid|
-	@auction_item = bid.auction_item
-	if !@following_items.include? @auction_item
-	  @following_items.push @auction_item
-	  @my_bids.push bid
-	end
+        @auction_item = bid.auction_item
+        if @auction_item.auction_id == current_auction.id
+          if !@following_items.include? @auction_item
+            @following_items.push @auction_item
+            @my_bids.push bid
+          end
+        end
       end
 
       @total_pledged = 0
 
       if !@following_items.nil? && !@following_items.empty?
-	@following_items.each do |auction_item|
-	  if !auction_item.nil? && !auction_item.bids.first.nil?
-	    if auction_item.bids.last.user == @user
-	      @total_pledged += auction_item.max_bid
-	    end
-	  end
-	end
+        @following_items.each do |auction_item|
+          if !auction_item.nil? && !auction_item.bids.first.nil?
+            if auction_item.bids.last.user == @user
+              @total_pledged += auction_item.max_bid
+            end
+          end
+        end
       end
     end
 
@@ -45,10 +57,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user_info = UserInfo.new(user_info_params)
     if @user.save
+      @user_info.user = @user
+      @user_info.save
+
       sign_in @user
       flash[:success] = "Welcome to the VSET Auction!"
-      redirect_to current_auction
+      if current_auction != nil
+        redirect_to current_auction
+      end
     else
       render 'new'
     end
@@ -84,6 +102,10 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password,
 				  :password_confirmation)
+    end
+
+    def user_info_params
+      params.require(:user_info).permit(:school)
     end
 
     # Before filters

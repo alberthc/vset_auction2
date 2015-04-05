@@ -1,16 +1,20 @@
 class StaticPagesController < ApplicationController
+  def contact
+  end
+
+  def help
+  end
+
   def home
     if signed_in?
-      redirect_to current_auction
+      if !current_auction.nil?
+        redirect_to current_auction
+      else
+        render 'no_auction'
+      end
     end
   end
 
-  def help
-  end
-
-  def help
-  end
-
-  def contact
+  def no_auction
   end
 end

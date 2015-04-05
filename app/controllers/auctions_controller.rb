@@ -7,9 +7,9 @@ class AuctionsController < ApplicationController
   end
 
   def show
-    @auction = Auction.find(params[:id])
+    @auction = current_auction #Auction.find(params[:id])
     @auction_items = @auction.auction_items
-    @bids = Bid.all
+    # @bids = Bid.all
     @total_pledged = 0
     @total_unpledged = 0
 
@@ -20,25 +20,25 @@ class AuctionsController < ApplicationController
     for auction_item in @auction_items
       @max_bid = auction_item.max_bid
       if !@max_bid.nil?
-	@total_pledged += auction_item.max_bid
-	@user = auction_item.bids.last.user
-	if !@user.nil?
-	  @user_info = @user.user_info
-	  if !@user_info.nil?
-	    @school = auction_item.bids.last.user.user_info.school
-	    if !@school.nil?
-	      if @school == UserInfo::USC
-		@total_USC += auction_item.max_bid
-	      elsif @school == UserInfo::UCLA
-		@total_UCLA += auction_item.max_bid
-	      elsif @school == UserInfo::UCI
-		@total_UCI += auction_item.max_bid
-	      end
-	    end
-	  end
-	end
+        @total_pledged += auction_item.max_bid
+        @user = auction_item.bids.last.user
+        if !@user.nil?
+          @user_info = @user.user_info
+          if !@user_info.nil?
+            @school = auction_item.bids.last.user.user_info.school
+            if !@school.nil?
+              if @school == UserInfo::USC
+                @total_USC += auction_item.max_bid
+              elsif @school == UserInfo::UCLA
+                @total_UCLA += auction_item.max_bid
+              elsif @school == UserInfo::UCI
+                @total_UCI += auction_item.max_bid
+              end
+            end
+          end
+        end
       else
-	@total_unpledged += auction_item.min_bid
+        @total_unpledged += auction_item.min_bid
       end
     end
   end
@@ -48,6 +48,15 @@ class AuctionsController < ApplicationController
     @auction_stat = @auction.build_auction_stat(auction_stat_params)
     if @auction.save && @auction_stat.save
       flash[:success] = "New Auction created!"
+
+      for auction in Auction.all
+        if auction.active? && auction.id != @auction.id
+          auction.active = false
+          auction.save
+          break
+        end
+      end
+
       redirect_to @auction
     else
       render 'new'
