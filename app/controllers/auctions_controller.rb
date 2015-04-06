@@ -17,6 +17,7 @@ class AuctionsController < ApplicationController
     @total_USC = 0
     @total_UCLA = 0
     @total_UCI = 0
+    @total_OTHER = 0
     for auction_item in @auction_items
       @max_bid = auction_item.max_bid
       if !@max_bid.nil?
@@ -33,6 +34,8 @@ class AuctionsController < ApplicationController
                 @total_UCLA += auction_item.max_bid
               elsif @school == UserInfo::UCI
                 @total_UCI += auction_item.max_bid
+              elsif @school == UserInfo::OTHER
+                @total_OTHER += auction_item.max_bid
               end
             end
           end
