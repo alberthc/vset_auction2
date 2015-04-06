@@ -66,10 +66,10 @@ class AuctionItemsController < ApplicationController
     if !params[:id].nil?
       @category_name = "Category" #get_category_name(params[:id])
       if params[:id] == AuctionItem::ALL
-        @auction_items = AuctionItem.paginate(page: params[:page], per_page: 25).order('id DESC')
+        @auction_items = AuctionItem.paginate(page: params[:page], per_page: 25).where(auction_id: current_auction.id).order('id DESC')
         render 'index'
       else
-        @auction_items = AuctionItem.where(category: params[:id]).paginate(page: params[:page], per_page: 25).order('id DESC')
+        @auction_items = AuctionItem.where(category: params[:id]).paginate(page: params[:page], per_page: 25).where(auction_id: current_auction.id).order('id DESC')
         render 'index'
       end
     end
@@ -85,19 +85,19 @@ class AuctionItemsController < ApplicationController
     def get_category_name(id)
       case id
       when AuctionItem::BOOK
-	return "Book"
+        return "Book"
       when AuctionItem::CLOTHING
-	return "Clothing"
+        return "Clothing"
       when AuctionItem::FOOD
-	return "Food"
+        return "Food"
       when AuctionItem::MUSIC
-	return "Music"
+        return "Music"
       when AuctionItem::SERVICE
-	return "Services"
+        return "Services"
       when AuctionItem::TECHNOLOGY
-	return "Technology"
+        return "Technology"
       else
-	return "Other"
+        return "Other"
       end
     end
 
