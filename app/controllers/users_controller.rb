@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       @my_bids = Array.new
       @bids.each do |bid|
         @auction_item = bid.auction_item
-        if @auction_item.auction_id == current_auction.id
+        if !@auction_item.nil? && @auction_item.auction_id == current_auction.id
           if !@following_items.include? @auction_item
             @following_items.push @auction_item
             @my_bids.push bid
