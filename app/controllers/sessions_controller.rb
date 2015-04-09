@@ -26,6 +26,7 @@ class SessionsController < ApplicationController
     @user.password = random_password
     @user.password_confirmation = random_password
     @user.save!
-    Mailer.create_and_deliver_password_change(@user, random_password)
+    Mailer.password_reset(@user, random_password).deliver
+    redirect_to password_reset_path
   end
 end
