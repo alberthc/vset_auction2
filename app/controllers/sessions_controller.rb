@@ -27,9 +27,9 @@ class SessionsController < ApplicationController
       @user.password = random_password
       @user.password_confirmation = random_password
       @user.save!
-      # Mailer.password_reset(@user, random_password).deliver
-      puts "New Password: " + random_password + " ---------------------------------"
-      redirect_to password_reset_path
+      Mailer.password_reset(@user, random_password).deliver
+      flash[:success] = 'Password is reset'
+      render 'password_reset'
     else
       flash.now[:error] = 'Invalid email address'
       render 'password_reset'
@@ -37,6 +37,9 @@ class SessionsController < ApplicationController
   end
 
   def password_change
+  end
+
+  def password_reset
   end
 
   def update_password
@@ -63,8 +66,5 @@ class SessionsController < ApplicationController
         render 'password_change'
       end
     end
-  end
-
-  def password_reset
   end
 end
