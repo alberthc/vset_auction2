@@ -13,6 +13,8 @@ VsetAuction2::Application.routes.draw do
   match '/signout',   to: 'sessions#destroy',	  via: 'delete'
   match '/password_reset',   to: 'sessions#password_reset',	  via: 'get'
   match '/forgot_password',   to: 'sessions#forgot_password',	  via: 'post'
+  match '/password_change',   to: 'sessions#password_change',	  via: 'get'
+  match '/update_password',   to: 'sessions#update_password',	  via: 'post'
   match '/help',      to: 'static_pages#help',	  via: 'get'
   match '/about',     to: 'static_pages#about',	  via: 'get'
   match '/contact',   to: 'static_pages#contact', via: 'get'
