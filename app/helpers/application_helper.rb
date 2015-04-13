@@ -10,6 +10,12 @@ module ApplicationHelper
     end
   end
 
+  # abs or /abs -> http://myx.com/abs
+  # http://grosser.it/2008/11/24/rails-transform-path-to-url
+  def path_to_url(path)
+    "#{request.protocol}#{request.host_with_port.sub(/:80$/,"")}/#{path.sub}"
+  end
+
 #  def current_auction
 #    @current_auction = nil
 #    for auction in Auction.all

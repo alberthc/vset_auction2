@@ -75,6 +75,7 @@ VsetAuction2::Application.configure do
     user_name: ENV['VSET_EMAIL'],
     password: ENV['VSET_PASSWORD'], # SMTP password is any valid API key
   }
+  config.action_mailer.default_url_options = { host: ENV['ENV_DOMAIN'] }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).

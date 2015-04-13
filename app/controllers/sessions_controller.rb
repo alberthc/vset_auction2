@@ -28,11 +28,13 @@ class SessionsController < ApplicationController
       @user.password_confirmation = random_password
       @user.save!
       Mailer.password_reset(@user, random_password).deliver
-      flash[:success] = 'Password is reset'
-      render 'password_reset'
+      flash.now[:success] = 'Password is reset'
+      redirect_to password_change_path
+      #render 'password_reset'
     else
       flash.now[:error] = 'Invalid email address'
-      render 'password_reset'
+      redirect_to password_reset_path
+      #render 'password_reset'
     end
   end
 
@@ -50,20 +52,20 @@ class SessionsController < ApplicationController
 
     if user.nil? || password.empty? || new_password.empty? || new_password_confirmation.empty?
       flash.now[:error] = 'All fields must be filled'
-      render 'password_change'
+      #render 'password_change'
+      redirect_to password_change_path
     else
-      user.password = password
-      user.password_confirmation = password
-
-      if user.save && new_password == new_password_confirmation
+      if user.authenticate(password) && new_password == new_password_confirmation
         user.password = new_password
         user.password_confirmation = new_password_confirmation
         user.save!
-        flash[:success] = 'Password change successfully'
-        render 'password_change'
+        #flash[:success] = 'Password change successfully'
+        #render 'password_change'
+        redirect_to signin_path
       else
         flash.now[:error] = 'Password is incorrect or doesn\'t match'
-        render 'password_change'
+        #render 'password_change'
+        redirect_to password_change_path
       end
     end
   end
