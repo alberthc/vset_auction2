@@ -58,8 +58,11 @@ class AuctionItemsController < ApplicationController
   end
 
   def index
-    #@auction_items = AuctionItem.paginate(page: params[:page], per_page: 25).order('id DESC').find_by(auction_id: current_auction.id)
-    @auction_items = AuctionItem.where(auction_id: current_auction.id).paginate(page: params[:page], per_page: 25, conditions: {}).order('id DESC')
+    if signed_in?
+      @auction_items = AuctionItem.where(auction_id: current_auction.id).paginate(page: params[:page], per_page: 25, conditions: {}).order('id DESC')
+    else
+      redirect_to root_url
+    end
   end
 
   def category
