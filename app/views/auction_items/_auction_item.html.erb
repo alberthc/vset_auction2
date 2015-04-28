@@ -4,7 +4,7 @@
   <p style="text-align: center;"><%= auction_item.name %></p>
 </td>
 <td>
-  <%= auction_item.user.name %>
+  <%= link_to auction_item.user.name, auction_item.user %>
 </td>
 <td>
   <%= auction_item.bids.count %>
@@ -13,7 +13,7 @@
   $<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %>
 </td>
 <td>
-  <%= auction_item.bids.first.nil? ? "" : auction_item.bids.last.user.name %>
+  <%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %>
 </td>
 <td>
   <% if current_user == auction_item.user || current_user.admin? %>
