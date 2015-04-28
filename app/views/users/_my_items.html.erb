@@ -10,7 +10,7 @@
   $<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %>
 </td>
 <td>
-  <%= auction_item.bids.first.nil? ? "" : auction_item.bids.last.user.name %>
+  <%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %>
 </td>
 <td>  
   <% if current_user == auction_item.user || current_user.admin? %>

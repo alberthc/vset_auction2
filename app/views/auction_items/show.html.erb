@@ -14,13 +14,13 @@
   </div>
   <br/>
   <div class="row">
-    <p>Posted by: <%= @auction_item.user.name %></p>
+    <p>Posted by: <%= link_to @auction_item.user.name, @auction_item.user %></p>
     <p>Starting bid: $<%= @auction_item.min_bid %></p>
     <p>Minimum increment: $<%= @auction_item.min_incr %></p>
     <% if @max_bid.nil? %>
       <p>No bids yet</p>
     <% else %>
-      <p>Bid to beat: $<%= @max_bid.amount %> by <%= @max_bid.user.name %></p>
+      <p>Bid to beat: $<%= @max_bid.amount %> by <%= link_to @max_bid.user.name, @max_bid.user %></p>
     <% end %>
   </div>
   <div class="row">
