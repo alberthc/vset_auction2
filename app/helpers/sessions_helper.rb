@@ -23,7 +23,9 @@ module SessionsHelper
 
   def current_user
     remember_token = User.hash(cookies[:remember_token])
-    @current_user ||= User.find_by(remember_token: remember_token)
+    @current_user = Rails.cache.fetch("current_user", expires_in: 1.day) do
+      User.find_by(remember_token: remember_token)
+    end
   end
 
   def current_user?(user)
