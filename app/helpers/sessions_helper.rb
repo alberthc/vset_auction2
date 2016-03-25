@@ -1,5 +1,5 @@
 module SessionsHelper
-  
+ 
   def sign_in(user)
     remember_token = User.new_remember_token
     cookies.permanent[:remember_token] = remember_token
@@ -39,14 +39,44 @@ module SessionsHelper
   end
 
   def current_auction
+    if is_auction_dirty?
+      @current_auction = get_new_active_auction
+      Rails.cache.write("current_auction", @current_auction, expires_in: 24.hours)
+    else
+      @current_auction = Rails.cache.fetch("current_auction", expires_in: 24.hours) do
+        get_new_active_auction
+      end
+    end
+
+    return @current_auction
+  end
+
+  def get_new_active_auction
+    new_active_auction = nil
+
     Auction.all.to_a.each do |auction|
       if auction.active?
-        @current_auction = auction
+        new_active_auction = auction
         break
       end 
     end
 
-    return @current_auction
+    return new_active_auction
+  end
+
+  def is_auction_dirty?
+    is_auction_dirty_cookie = cookies[:is_auction_dirty]
+
+    if (!is_auction_dirty_cookie.nil? && is_auction_dirty_cookie == "true")
+      cookies.permanent[:is_auction_dirty] = "false"
+      return true
+    end
+
+    return false
+  end
+
+  def set_auction_dirty
+    cookies.permanent[:is_auction_dirty] = "true"
   end
 
   def redirect_back_or(default)

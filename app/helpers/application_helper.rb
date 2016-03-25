@@ -16,14 +16,4 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port.sub(/:80$/,"")}/#{path.sub}"
   end
 
-#  def current_auction
-#    @current_auction = nil
-#    for auction in Auction.all
-#      if auction.active?
-#        @current_auction = auction
-#        break
-#      end
-#    end
-#  end
-
 end

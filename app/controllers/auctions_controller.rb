@@ -60,6 +60,8 @@ class AuctionsController < ApplicationController
         end
       end
 
+      set_auction_dirty
+
       redirect_to @auction
     else
       render 'new'
