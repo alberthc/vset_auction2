@@ -27,8 +27,10 @@ module SessionsHelper
   end
 
   def current_user
+    puts "current_user ------------------------------------- 1"
     remember_token = User.hash(cookies[:remember_token])
     @current_user = Rails.cache.fetch("current_user", expires_in: @user_cache_expiration_time) do
+    puts "current_user NEW ------------------------------------- 1"
       User.find_by(remember_token: remember_token)
     end
   end
@@ -49,10 +51,13 @@ module SessionsHelper
     # TODO: Change this to be dynamic - retrieved from duration of current auction
     expiration_time = 60.days
     if is_auction_dirty?
+      puts "CURRENT_AUCTION DIRTY -------------------------------------- 1"
       @current_auction = get_new_active_auction
       Rails.cache.write("current_auction", @current_auction, expires_in: expiration_time)
     else
+      puts "CURRENT_AUCTION -------------------------------------- 2"
       @current_auction = Rails.cache.fetch("current_auction", expires_in: expiration_time) do
+        puts "CURRENT_AUCTION NEW -------------------------------------- 2"
         get_new_active_auction
       end
     end
