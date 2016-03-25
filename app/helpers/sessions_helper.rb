@@ -39,11 +39,13 @@ module SessionsHelper
   end
 
   def current_auction
+    # TODO: Change this to be dynamic - retrieved from duration of current auction
+    expiration_time = 60.days
     if is_auction_dirty?
       @current_auction = get_new_active_auction
-      Rails.cache.write("current_auction", @current_auction, expires_in: 24.hours)
+      Rails.cache.write("current_auction", @current_auction, expires_in: expiration_time)
     else
-      @current_auction = Rails.cache.fetch("current_auction", expires_in: 24.hours) do
+      @current_auction = Rails.cache.fetch("current_auction", expires_in: expiration_time) do
         get_new_active_auction
       end
     end
