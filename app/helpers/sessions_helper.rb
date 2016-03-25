@@ -6,7 +6,7 @@ module SessionsHelper
     remember_token = User.new_remember_token
     cookies.permanent[:remember_token] = remember_token
     user.update_attribute(:remember_token, User.hash(remember_token))
-    Rails.cache.write("current_user", user, expires_in: @user_cache_expiration_time)
+    #Rails.cache.write("current_user", user, expires_in: @user_cache_expiration_time)
   end
 
   def signed_in?
@@ -17,7 +17,7 @@ module SessionsHelper
     current_user.update_attribute(:remember_token,
                                   User.hash(User.new_remember_token))
     cookies.delete(:remember_token)
-    Rails.cache.delete("current_user")
+    #Rails.cache.delete("current_user")
     Rails.cache.delete("current_auction")
     self.current_user = nil
   end
@@ -28,9 +28,10 @@ module SessionsHelper
 
   def current_user
     remember_token = User.hash(cookies[:remember_token])
-    @current_user = Rails.cache.fetch("current_user", expires_in: @user_cache_expiration_time) do
-      User.find_by(remember_token: remember_token)
-    end
+    @current_user ||= User.find_by(remember_token: remember_token)
+    #@current_user = Rails.cache.fetch("current_user", expires_in: @user_cache_expiration_time) do
+    #  User.find_by(remember_token: remember_token)
+    #end
   end
 
   def current_user?(user)
