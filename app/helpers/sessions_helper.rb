@@ -1,9 +1,12 @@
 module SessionsHelper
+
+  @user_cache_expiration_time = 1.day
  
   def sign_in(user)
     remember_token = User.new_remember_token
     cookies.permanent[:remember_token] = remember_token
     user.update_attribute(:remember_token, User.hash(remember_token))
+    Rails.cache.write("current_user", user, expires_in: @user_cache_expiration_time)
   end
 
   def signed_in?
@@ -14,6 +17,8 @@ module SessionsHelper
     current_user.update_attribute(:remember_token,
                                   User.hash(User.new_remember_token))
     cookies.delete(:remember_token)
+    Rails.cache.delete("current_user")
+    Rails.cache.delete("current_auction")
     self.current_user = nil
   end
 
@@ -23,7 +28,7 @@ module SessionsHelper
 
   def current_user
     remember_token = User.hash(cookies[:remember_token])
-    @current_user = Rails.cache.fetch("current_user", expires_in: 1.day) do
+    @current_user = Rails.cache.fetch("current_user", expires_in: @user_cache_expiration_time) do
       User.find_by(remember_token: remember_token)
     end
   end
@@ -71,7 +76,7 @@ module SessionsHelper
   def is_auction_dirty?
     is_auction_dirty_cookie = cookies[:is_auction_dirty]
 
-    if (!is_auction_dirty_cookie.nil? && is_auction_dirty_cookie == "true")
+    if (is_auction_dirty_cookie.nil? || is_auction_dirty_cookie == "true")
       cookies.permanent[:is_auction_dirty] = "false"
       return true
     end
