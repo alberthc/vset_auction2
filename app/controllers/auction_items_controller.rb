@@ -24,17 +24,23 @@ class AuctionItemsController < ApplicationController
   end
 
   def show
-    @auction_item = AuctionItem.find(params[:id])
-    @bid = Bid.new
+    #@auction_item = AuctionItem.find(params[:id])
+    auction_item_id = params[:id]
+    auction_item_query = "comments.auction_item_id = ? OR bids.auction_item_id = ?"
+    auction_item_result = AuctionItem.includes(:comments, :bids).where(auction_item_query, auction_item_id, auction_item_id).references(:comments, :bids)
 
-    @max_bid = get_max_bid(@auction_item.id)
-    
-    if !@max_bid.nil?
+    if auction_item_result.nil? || auction_item_result.length == 0
+      @auction_item = AuctionItem.find(auction_item_id)
+    else
+      @auction_item = auction_item_result[0]
+      #@max_bid = get_max_bid(@auction_item.id)
+      @max_bid = @auction_item.bids.last
       @max_bid_user = @max_bid.user
+      @comments = @auction_item.comments
     end
-
+    
+    @bid = Bid.new
     @comment = Comment.new
-    @comments = Comment.where(auction_item_id: @auction_item.id)
   end
 
   def edit
