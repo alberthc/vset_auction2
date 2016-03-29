@@ -58,13 +58,18 @@ module SessionsHelper
 
   def current_auction
     # TODO: Change this to be dynamic - retrieved from duration of current auction
-    expiration_time = 60.days
 
-    @current_auction = Rails.cache.fetch("current_auction", expires_in: expiration_time) do
+    @current_auction = Rails.cache.fetch("#{cache_key_for_auctions}/current_auction") do
       get_new_active_auction
     end
 
     return @current_auction
+  end
+
+  def cache_key_for_auctions
+    count = Auction.count
+    max_updated_at = Auction.maximum(:updated_at).try(:utc).try(:to_s, :number)
+    "auctions/all-#{count}-#{max_updated_at}"
   end
 
   def get_new_active_auction

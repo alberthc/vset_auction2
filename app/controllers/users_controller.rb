@@ -9,35 +9,32 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    user_id = params[:id]
+    user_result = User.includes(:user_info, :bids).where(id: user_id)
+    #@user = User.find(params[:id])
+    @user = user_result.first
     @user_info = @user.user_info
 
-    if @user_info.nil?
-      @user_info = UserInfo.new
-    end
+#    if @user_info.nil?
+#      @user_info = UserInfo.new
+#    end
 
     if !@user.auction_items.nil?
-      @my_items = @user.auction_items.paginate(page: params[:page], per_page: 10).where(auction_id: current_auction.id).order('LOWER(name) ASC')
+      #@my_items = @user.auction_items.paginate(page: params[:page], per_page: 10).where(auction_id: current_auction.id).order('LOWER(name) ASC')
+      my_items_result = @user.auction_items.includes(:bids).where(auction_id: current_auction.id).order('LOWER(name) ASC')
+      @my_items = my_items_result.paginate(page: params[:page], per_page: 10).order('LOWER(name) ASC')
     end
 
-    if !@user.bids.nil?
-      @bids = @user.bids.order('id DESC')
+    #@bids = @user.bids.includes(:auction_item).where("auction_item.auction_id = ?", current_auction.id).references(:auction_item)
+    @auction_items = AuctionItem.includes(:bids).where("auction_id = ? AND bids.user_id = ?", current_auction.id, @user.id).order('bids.id DESC')
+    #if !@auction_items.nil?
+      #@bids = @auction_items.bids.order('id DESC')
 
-      # Following items are AuctionItems that the user has bid on 
-      @following_items = Array.new
-      @my_bids = Array.new
-      @bids.each do |bid|
-        @auction_item = bid.auction_item
-        if !@auction_item.nil? && @auction_item.auction_id == current_auction.id
-          if !@following_items.include? @auction_item
-            @following_items.push @auction_item
-            @my_bids.push bid
-          end
-        end
-      end
+      # @following_items are AuctionItems that the user has bid on 
+      #@following_items = Array.new
+      @following_items = @auction_items
 
       @total_pledged = 0
-
       if !@following_items.nil? && !@following_items.empty?
         @following_items.each do |auction_item|
           if !auction_item.nil? && !auction_item.bids.first.nil?
@@ -47,7 +44,7 @@ class UsersController < ApplicationController
           end
         end
       end
-    end
+    #end
 
     @user_name_header = @user.name + "'s"
     if @user == current_user

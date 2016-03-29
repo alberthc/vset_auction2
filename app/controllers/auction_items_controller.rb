@@ -65,7 +65,8 @@ class AuctionItemsController < ApplicationController
 
   def index
     if signed_in?
-      @auction_items = AuctionItem.where(auction_id: current_auction.id).paginate(page: params[:page], per_page: 25, conditions: {}).order('id DESC')
+      auction_items_result = AuctionItem.includes(:bids).where(auction_id: current_auction.id)
+      @auction_items = auction_items_result.paginate(page: params[:page], per_page: 5).order('id DESC')
     else
       redirect_to root_url
     end
@@ -75,10 +76,14 @@ class AuctionItemsController < ApplicationController
     if !params[:id].nil?
       @category_name = "Category" #get_category_name(params[:id])
       if params[:id] == AuctionItem::ALL
-        @auction_items = AuctionItem.paginate(page: params[:page], per_page: 25).where(auction_id: current_auction.id).order('id DESC')
+        auction_items_result = AuctionItem.includes(:bids).where(auction_id: current_auction.id)
+        @auction_items = auction_items_result.paginate(page: params[:page], per_page: 5).order('id DESC')
         render 'index'
       else
-        @auction_items = AuctionItem.where(category: params[:id]).paginate(page: params[:page], per_page: 25).where(auction_id: current_auction.id).order('id DESC')
+        category_id = params[:id]
+        category_items_query = "auction_id = ? AND category = ?"
+        auction_items_result = AuctionItem.includes(:bids).where(category_items_query, current_auction.id, category_id)
+        @auction_items = auction_items_result.paginate(page: params[:page], per_page: 25).order('id DESC')
         render 'index'
       end
     end

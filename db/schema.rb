@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426011554) do
+ActiveRecord::Schema.define(version: 20160329002235) do
 
   create_table "auction_items", force: true do |t|
     t.integer  "auction_id"
