@@ -7,8 +7,8 @@ class AuctionsController < ApplicationController
   end
 
   def show
-    @auction = current_auction #Auction.find(params[:id])
-    @auction_items = @auction.auction_items
+    @auction = current_auction
+    @auction_items = @auction.auction_items.includes(:bids).where(auction_id: current_auction.id)
     # @bids = Bid.all
     @total_pledged = 0
     @total_unpledged = 0
@@ -26,7 +26,7 @@ class AuctionsController < ApplicationController
         if !@user.nil?
           @user_info = @user.user_info
           if !@user_info.nil?
-            @school = auction_item.bids.last.user.user_info.school
+            @school = @user_info.school
             if !@school.nil?
               if @school == UserInfo::USC
                 @total_USC += auction_item.max_bid
