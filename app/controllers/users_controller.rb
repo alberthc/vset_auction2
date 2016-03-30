@@ -71,6 +71,8 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(page: params[:page]).order('LOWER(name) ASC')
+    max_updated_at = @users.maximum(:updated_at).try(:utc)
+    fresh_when last_modified: max_updated_at, etag: @users
   end
 
   def destroy
