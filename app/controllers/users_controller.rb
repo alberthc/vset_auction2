@@ -11,44 +11,23 @@ class UsersController < ApplicationController
   def show
     user_id = params[:id]
     user_result = User.includes(:user_info, :bids).where(id: user_id)
-    #@user = User.find(params[:id])
     @user = user_result.first
     @user_info = @user.user_info
 
-#    if @user_info.nil?
-#      @user_info = UserInfo.new
-#    end
-
     if !@user.auction_items.nil?
-      #@my_items = @user.auction_items.paginate(page: params[:page], per_page: 10).where(auction_id: current_auction.id).order('LOWER(name) ASC')
       my_items_result = @user.auction_items.includes(:bids).where(auction_id: current_auction.id).order('LOWER(name) ASC')
       @my_items = my_items_result.paginate(page: params[:page], per_page: 10).order('LOWER(name) ASC')
     end
 
-    #@bids = @user.bids.includes(:auction_item).where("auction_item.auction_id = ?", current_auction.id).references(:auction_item)
-    @auction_items = AuctionItem.includes(:bids).where("auction_id = ? AND bids.user_id = ?", current_auction.id, @user.id).order('bids.id DESC')
-    #if !@auction_items.nil?
-      #@bids = @auction_items.bids.order('id DESC')
+    # @following_items are AuctionItems that the user has bid on 
+    @following_items = AuctionItem.includes(:bids).where("auction_id = ? AND bids.user_id = ?", current_auction.id, @user.id).order('bids.id DESC')
+    
+    @total_pledged = get_total_pledged(@user, @following_items)
 
-      # @following_items are AuctionItems that the user has bid on 
-      #@following_items = Array.new
-      @following_items = @auction_items
-
-      @total_pledged = 0
-      if !@following_items.nil? && !@following_items.empty?
-        @following_items.each do |auction_item|
-          if !auction_item.nil? && !auction_item.bids.first.nil?
-            if auction_item.bids.last.user == @user
-              @total_pledged += auction_item.max_bid
-            end
-          end
-        end
-      end
-    #end
-
-    @user_name_header = @user.name + "'s"
     if @user == current_user
       @user_name_header = "My"
+    else
+      @user_name_header = @user.name + "'s"
     end
   end
 
@@ -109,6 +88,20 @@ class UsersController < ApplicationController
 
     def user_info_params
       params.require(:user_info).permit(:school)
+    end
+
+    def get_total_pledged(user, auction_items)
+      total_pledged = 0
+
+      auction_items.each do |item|
+        last_bid = item.bids.first
+        max_bid_amount = item.max_bid
+        if max_bid_amount == last_bid.amount
+          total_pledged += max_bid_amount
+        end
+      end
+
+      total_pledged
     end
 
     # Before filters
