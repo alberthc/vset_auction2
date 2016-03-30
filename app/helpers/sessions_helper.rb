@@ -1,3 +1,5 @@
+include ApplicationHelper
+
 module SessionsHelper
 
   @user_cache_expiration_time = 1.day
@@ -7,16 +9,17 @@ module SessionsHelper
     cookies.permanent[:remember_token] = remember_token
     user.update_attribute(:remember_token, User.hash(remember_token))
     cookies.permanent[:current_user_id] = user.id
-    Rails.cache.write(current_user_cache_key, user, expires_in: @user_cache_expiration_time)
+    Rails.cache.write(cache_key_for_current_user, user, expires_in: @user_cache_expiration_time)
   end
 
-  def current_user_cache_key
+  def cache_key_for_current_user
     current_user_id = cookies[:current_user_id]
+    remember_token = User.hash(cookies[:remember_token])
     if current_user_id.nil?
       return "current_user"
     end
 
-    return "current_user#{current_user_id}"
+    return "current_user#{current_user_id}-#{remember_token}"
   end
 
   def signed_in?
@@ -27,7 +30,7 @@ module SessionsHelper
     current_user.update_attribute(:remember_token,
                                   User.hash(User.new_remember_token))
     cookies.delete(:remember_token)
-    Rails.cache.delete(current_user_cache_key)
+    Rails.cache.delete(cache_key_for_current_user)
     Rails.cache.delete("current_auction")
     cookies.delete(:current_user_id)
     self.current_user = nil
@@ -38,10 +41,12 @@ module SessionsHelper
   end
 
   def current_user
+    @current_user = cache_fetch(cache_key_for_current_user, 1.hour, method(:get_new_current_user))
+  end
+
+  def get_new_current_user
     remember_token = User.hash(cookies[:remember_token])
-    @current_user = Rails.cache.fetch(current_user_cache_key, expires_in: @user_cache_expiration_time) do
-      User.find_by(remember_token: remember_token)
-    end
+    User.find_by(remember_token: remember_token)
   end
 
   def current_user?(user)
@@ -58,10 +63,8 @@ module SessionsHelper
 
   def current_auction
     # TODO: Change this to be dynamic - retrieved from duration of current auction
-
-    @current_auction = Rails.cache.fetch("#{cache_key_for_auctions}/current_auction") do
-      get_new_active_auction
-    end
+    cache_key = "#{cache_key_for_auctions}/current_auction"
+    @current_auction = cache_fetch(cache_key, 1.hour, method(:get_new_active_auction))
 
     return @current_auction
   end
