@@ -30,13 +30,13 @@ class AuctionItemsController < ApplicationController
 
     if auction_item_result.nil? || auction_item_result.length == 0
       @auction_item = AuctionItem.find(auction_item_id)
-      fresh_when last_modified: @auction_item.updated_at.utc, etag: @auction_item
+      #fresh_when last_modified: @auction_item.updated_at.utc, etag: @auction_item
     else
       @auction_item = auction_item_result.first
       @max_bid = @auction_item.bids.last
       @max_bid_user = @max_bid.user
       @comments = @auction_item.comments
-      fresh_when last_modified: @auction_item.updated_at.utc, etag: @auction_item
+      #fresh_when last_modified: @auction_item.updated_at.utc, etag: @auction_item
     end
     
     @bid = Bid.new
@@ -67,8 +67,8 @@ class AuctionItemsController < ApplicationController
     if signed_in?
       auction_items_result = AuctionItem.includes(:bids).where(auction_id: current_auction.id)
       @auction_items = auction_items_result.paginate(page: params[:page], per_page: 20).order('id DESC')
-      max_updated_at = auction_items_result.maximum(:updated_at).try(:utc)
-      fresh_when last_modified: max_updated_at, etag: @auction_items
+      #max_updated_at = auction_items_result.maximum(:updated_at).try(:utc)
+      #fresh_when last_modified: max_updated_at, etag: @auction_items
     else
       redirect_to root_url
     end
