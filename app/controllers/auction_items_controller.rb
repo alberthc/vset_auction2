@@ -67,6 +67,7 @@ class AuctionItemsController < ApplicationController
     if signed_in?
       auction_items_result = AuctionItem.includes(:bids).where(auction_id: current_auction.id)
       @auction_items = auction_items_result.paginate(page: params[:page], per_page: 20).order('id DESC')
+      @category_name = "All"
       #max_updated_at = auction_items_result.maximum(:updated_at).try(:utc)
       #fresh_when last_modified: max_updated_at, etag: @auction_items
     else
@@ -76,13 +77,13 @@ class AuctionItemsController < ApplicationController
 
   def category
     if !params[:id].nil?
-      @category_name = "Category" #get_category_name(params[:id])
-      if params[:id] == AuctionItem::ALL
+      category_id = params[:id]
+      @category_name = get_category_name(category_id)
+      if category_id == AuctionItem::ALL
         auction_items_result = AuctionItem.includes(:bids).where(auction_id: current_auction.id)
         @auction_items = auction_items_result.paginate(page: params[:page], per_page: 20).order('id DESC')
         render 'index'
       else
-        category_id = params[:id]
         category_items_query = "auction_id = ? AND category = ?"
         auction_items_result = AuctionItem.includes(:bids).where(category_items_query, current_auction.id, category_id)
         @auction_items = auction_items_result.paginate(page: params[:page], per_page: 20).order('id DESC')
@@ -99,9 +100,9 @@ class AuctionItemsController < ApplicationController
     end
 
     def get_category_name(id)
-      case id
+      case id.to_i
       when AuctionItem::BOOK
-        return "Book"
+        return "Books"
       when AuctionItem::CLOTHING
         return "Clothing"
       when AuctionItem::FOOD

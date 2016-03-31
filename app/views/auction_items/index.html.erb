@@ -1,5 +1,5 @@
 <% provide(:title, 'Auction Items') %>
-<h1>Auction Items</h1>
+<h1>Auction Items: <%= @category_name %></h1>
 
 <div class="span2">
   <%= render 'shared/category_menu' %>
@@ -11,11 +11,11 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <td>Item</td>
-        <td>Offered by</td>
-        <td># of bids</td>
-        <td>Current bid</td>
-        <td>Bidder</td>
+        <td><h4><strong>Item</strong></h4></td>
+        <td><h4><strong>Offered by</strong></h4></td>
+        <td><h4><strong># of bids</strong></h4></td>
+        <td><h4><strong>Current bid</strong></h4></td>
+        <td><h4><strong>Bidder</strong></h4></td>
         <td></td>
       </tr>
     </thead>

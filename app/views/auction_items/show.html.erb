@@ -3,24 +3,27 @@
 <div class="container">
   <div class="row">
     <h1><%= @auction_item.name %></h1>
+    <br><br>
   </div>
   <div class="row">
     <div class="span4">
       <%= image_tag @auction_item.image.url(:medium) %>
     </div>
     <div class="span8">
-      <p><%= @auction_item.description %></p>
+      <p class="lead"><%= @auction_item.description %></p>
     </div>
   </div>
   <br/>
   <div class="row">
-    <p>Posted by: <%= link_to @auction_item.user.name, @auction_item.user %></p>
-    <p>Starting bid: $<%= @auction_item.min_bid %></p>
-    <p>Minimum increment: $<%= @auction_item.min_incr %></p>
+    <h4><strong>Posted by: </strong><%= link_to @auction_item.user.name, @auction_item.user %></h4>
+    <h4><strong>Starting bid: </strong>$<%= @auction_item.min_bid %></h4>
+    <h4><strong>Minimum increment: </strong>$<%= @auction_item.min_incr %></h4>
     <% if @max_bid.nil? %>
-      <p>No bids yet</p>
+      <h4>No bids yet!</h4>
     <% else %>
-      <p>Bid to beat: $<%= @max_bid.amount %> by <%= link_to @max_bid.user.name, @max_bid.user %></p>
+      <br>
+      <h4><strong>Bid to beat: </strong>$<%= @max_bid.amount %> by <%= link_to @max_bid.user.name, @max_bid.user %></h4>
+      <br>
     <% end %>
   </div>
   <div class="row">

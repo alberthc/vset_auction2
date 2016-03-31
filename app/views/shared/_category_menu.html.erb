@@ -2,14 +2,14 @@
   <nav>
     <ul class="nav nav-pills nav-stacked span2">  
       <li><%= link_to 'Add Item', new_auction_item_path, class: "btn btn-small"%></li>
-      <li><%= link_to 'All', auction_items_path %></li>
-      <li><%= link_to 'Books', category_path(id: AuctionItem::BOOK) %></li>
-      <li><%= link_to 'Clothing', category_path(id: AuctionItem::CLOTHING) %></li>
-      <li><%= link_to 'Food', category_path(id: AuctionItem::FOOD) %></li>
-      <li><%= link_to 'Music', category_path(id: AuctionItem::MUSIC) %></li>
-      <li><%= link_to 'Services', category_path(id: AuctionItem::SERVICE) %></li>
-      <li><%= link_to 'Technology', category_path(id: AuctionItem::TECHNOLOGY) %></li>
-      <li><%= link_to 'Other', category_path(id: AuctionItem::OTHER) %></li>
+      <li><h4><%= link_to 'All', auction_items_path %></h4></li>
+      <li><h4><%= link_to 'Books', category_path(id: AuctionItem::BOOK) %></h4></li>
+      <li><h4><%= link_to 'Clothing', category_path(id: AuctionItem::CLOTHING) %></h4></li>
+      <li><h4><%= link_to 'Food', category_path(id: AuctionItem::FOOD) %></h4></li>
+      <li><h4><%= link_to 'Music', category_path(id: AuctionItem::MUSIC) %></h4></li>
+      <li><h4><%= link_to 'Services', category_path(id: AuctionItem::SERVICE) %></h4></li>
+      <li><h4><%= link_to 'Technology', category_path(id: AuctionItem::TECHNOLOGY) %></h4></li>
+      <li><h4><%= link_to 'Other', category_path(id: AuctionItem::OTHER) %></h4></li>
     </ul>
   </nav>
 </div>
