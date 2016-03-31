@@ -1,9 +1,7 @@
 <tr style="height:100px; overflow:hidden;">
 <td>
-  <h5>
-      <%= link_to image_tag(auction_item.image.url(:thumb)), auction_item, title: auction_item.name, data: {caption: auction_item.name}%>
-      <p style="text-align: center;"><%= auction_item.name %></p>
-  </h5>
+  <%= link_to image_tag(auction_item.image.url(:thumb)), auction_item, title: auction_item.name, data: {caption: auction_item.name}%>
+  <h5 class="text-center"><%= auction_item.name %></h5>
 </td>
 <td><h2><small><%= link_to auction_item.user.name, auction_item.user %></small></h2></td>
 <td><h2><small><%= auction_item.bids.count %></small></h2></td>

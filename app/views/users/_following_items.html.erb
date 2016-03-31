@@ -5,21 +5,11 @@
 <% end %>
 <td>
   <%= link_to image_tag(auction_item.image.url(:thumb)), auction_item, title: auction_item.name, data: {caption: auction_item.name}%>
-  <p style="text-align: center;"><%= auction_item.name %></p>
+  <h5 class="text-center"><%= auction_item.name %></h5>
 </td>
-<td>
-  <%= link_to auction_item.user.name, auction_item.user %>
-</td>
-<td>
-  <%= auction_item.bids.count %>
-</td>
-<td>
-  $<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %>
-</td>
-<td>
-  <%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %>
-</td>
-<td>
-  $<%= Bid.where(auction_item: auction_item, user: @user).last.amount %>
-</td>
+<td><h2><small><%= link_to auction_item.user.name, auction_item.user %></small></h2></td>
+<td><h2><small><%= auction_item.bids.count %></small></h2></td>
+<td><h2><small>$<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %></small></h2></td>
+<td><h2><small><%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %></small></h2></td>
+<td><h2><small>$<%= Bid.where(auction_item: auction_item, user: @user).last.amount %></small></h2></td>
 </tr>

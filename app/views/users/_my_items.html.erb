@@ -1,24 +1,22 @@
 <tr style="height:100px; overflow:hidden;">
 <td>
   <%= link_to image_tag(auction_item.image.url(:thumb)), auction_item, title: auction_item.name, data: {caption: auction_item.name}%>
-  <p style="text-align: center;"><%= auction_item.name %></p>
+  <h5 class="text-center"><%= auction_item.name %></h5>
 </td>
+<td><h2><small><%= auction_item.bids.count %></small></h2></td>
+<td><h2><small>$<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %></small></h2></td>
+<td><h2><small><%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %></small></h2></td>
 <td>
-  <%= auction_item.bids.count %>
-</td>
-<td>
-  $<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %>
-</td>
-<td>
-  <%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %>
-</td>
-<td>  
-  <% if current_user == auction_item.user || current_user.admin? %>
-    | <%= link_to "edit", edit_auction_item_path(auction_item) %>
-  <% end %>
-  <% if current_user.admin? %>
-    | <%= link_to "delete", auction_item, method: :delete,
+  <h2>
+    <small>
+      <% if current_user == auction_item.user || current_user.admin? %>
+        | <%= link_to "edit", edit_auction_item_path(auction_item) %>
+      <% end %>
+      <% if current_user.admin? %>
+        | <%= link_to "delete", auction_item, method: :delete,
                                   data: { confirm: "You sure?" } %>
-  <% end %>
+      <% end %>
+    </small>
+  </h2>
 </td>
 </tr>
