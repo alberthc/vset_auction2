@@ -9,6 +9,9 @@ class AuctionItemsController < ApplicationController
   end
 
   def create
+    if auction_item_params[:category].nil?
+      auction_item_params[:category] = AuctionItem::OTHER
+    end
     @auction_item = current_user.auction_items.build(auction_item_params)
     
     if current_auction != nil
@@ -76,8 +79,7 @@ class AuctionItemsController < ApplicationController
       category_id = params[:id]
       @category_name = get_category_name(category_id)
       if category_id == AuctionItem::ALL
-        auction_items_result = AuctionItem.includes(:bids).where(auction_id: current_auction.id)
-        @auction_items = auction_items_result.paginate(page: params[:page], per_page: 20).order('id DESC')
+        @auction_items = get_all_auction_items
         render 'index'
       else
         category_items_query = "auction_id = ? AND category = ?"
