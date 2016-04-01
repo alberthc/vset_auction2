@@ -16,7 +16,12 @@ module SessionsHelper
     current_user_id = cookies[:current_user_id]
     remember_token = User.hash(cookies[:remember_token])
     if current_user_id.nil?
-      return "current_user"
+      new_current_user = get_new_current_user
+      if new_current_user.nil?
+        current_user_id = -1
+      else
+        current_user_id = new_current_user.id
+      end
     end
 
     return "current_user#{current_user_id}-#{remember_token}"
