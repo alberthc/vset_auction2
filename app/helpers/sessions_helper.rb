@@ -21,6 +21,8 @@ module SessionsHelper
         current_user_id = -1
       else
         current_user_id = new_current_user.id
+        cookies.permanent[:current_user_id] = current_user_id
+        current_user_id = current_user_id
       end
     end
 
