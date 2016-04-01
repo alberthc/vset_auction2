@@ -17,7 +17,7 @@ module AuctionsHelper
 
         user = auction_item.bids.last.user
         school = user.user_info.school
-        puts case school
+        case school
         when UserInfo::USC
           @total_USC += max_bid
         when UserInfo::UCLA
