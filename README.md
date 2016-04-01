@@ -25,3 +25,5 @@ Things you may want to cover:
 
 
 This is the VSET auction application.
+
+User id: 80 is missing, but user info still exists.
