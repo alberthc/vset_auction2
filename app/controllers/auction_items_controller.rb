@@ -9,9 +9,6 @@ class AuctionItemsController < ApplicationController
   end
 
   def create
-    if auction_item_params[:category].nil?
-      auction_item_params[:category] = AuctionItem::OTHER
-    end
     @auction_item = current_user.auction_items.build(auction_item_params)
     
     if current_auction != nil
