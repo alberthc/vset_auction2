@@ -10,4 +10,9 @@ module AuctionItemsHelper
     end
   end
 
+  def get_all_auction_items
+    auction_items_result = AuctionItem.includes(:bids).where(auction_id: current_auction.id)
+    @auction_items = auction_items_result.paginate(page: params[:page], per_page: 20).order('id DESC')
+  end
+
 end
