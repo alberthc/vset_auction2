@@ -5,6 +5,8 @@
 <%= link_to "Enter auction", auction_items_path, class: "btn btn-large btn-primary" %>
 </div>
 <br/>
+<% cache(cache_key_for_current_auction_stats) do %>
+<% calculate_stats %>
 <div class="center hero-unit">
   <p>Total items posted: <%= @auction_items.count %></p>
   <p>Total amount pledged: $<%= @total_pledged %></p>
@@ -15,3 +17,4 @@
   <p style="color:green;">UCI pledged $<%= @total_UCI %></p>
   <p style="color:black;">OTHER pledged $<%= @total_OTHER %></p>
 </div>
+<% end %>
