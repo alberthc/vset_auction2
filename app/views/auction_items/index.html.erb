@@ -7,11 +7,10 @@
 </div>
 <% end %>
 
+<% get_all_auction_items %>
 <div class="span9">
   <%= will_paginate %>
   
-<% cache(cache_key_for_all_auction_items) do %>
-<% get_all_auction_items %>
   <table class="table table-hover table-center">
     <thead>
       <tr>
@@ -32,8 +31,8 @@
       <% end %>
     <% end %>
     </tbody>
-  </table>   
-<% end %>
-    
+  </table>
+ 
   <%= will_paginate %>
+    
 </div>
