@@ -22,5 +22,5 @@
   <td><h2><small><%= auction_item.bids.count %></small></h2></td>
   <td><h2><small>$<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %></small></h2></td>
   <td><h2><small><%= bidder.nil? ? "" : (link_to bidder.name, bidder) %></small></h2></td>
-  <td><h2><small>$<%= bidder == @user ? my_max_bid : auction_item.max_bid %></small></h2></td>
+  <td><h2><small>$<%= my_max_bid.nil? ? "" : my_max_bid %></small></h2></td>
 </tr>
