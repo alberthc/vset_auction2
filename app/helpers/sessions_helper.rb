@@ -1,4 +1,4 @@
-include ApplicationHelper
+include CacheHelper
 
 module SessionsHelper
 
@@ -10,23 +10,6 @@ module SessionsHelper
     user.update_attribute(:remember_token, User.hash(remember_token))
     cookies.permanent[:current_user_id] = user.id
     Rails.cache.write(cache_key_for_current_user, user, expires_in: @user_cache_expiration_time)
-  end
-
-  def cache_key_for_current_user
-    current_user_id = cookies[:current_user_id]
-    remember_token = User.hash(cookies[:remember_token])
-    if current_user_id.nil?
-      new_current_user = get_new_current_user
-      if new_current_user.nil?
-        current_user_id = -1
-      else
-        current_user_id = new_current_user.id
-        cookies.permanent[:current_user_id] = current_user_id
-        current_user_id = current_user_id
-      end
-    end
-
-    return "current_user#{current_user_id}-#{remember_token}"
   end
 
   def signed_in?
@@ -70,16 +53,10 @@ module SessionsHelper
 
   def current_auction
     # TODO: Change this to be dynamic - retrieved from duration of current auction
-    cache_key = "#{cache_key_for_auctions}/current_auction"
+    cache_key = "#{cache_key_for_current_auction}/current_auction"
     @current_auction = cache_fetch(cache_key, 1.hour, method(:get_new_active_auction))
 
     return @current_auction
-  end
-
-  def cache_key_for_auctions
-    count = Auction.count
-    max_updated_at = Auction.maximum(:updated_at).try(:utc).try(:to_s, :number)
-    "auctions/all-#{count}-#{max_updated_at}"
   end
 
   def get_new_active_auction

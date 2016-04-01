@@ -15,20 +15,15 @@ class UsersController < ApplicationController
     @user_info = @user.user_info
 
     if !@user.auction_items.nil?
-      my_items_result = @user.auction_items.includes(:bids).where(auction_id: current_auction.id).order('LOWER(name) ASC')
-      @my_items = my_items_result.paginate(page: params[:page], per_page: 10).order('LOWER(name) ASC')
+      @my_posted_items = get_my_posted_items(@user)
     end
 
-    # @following_items are AuctionItems that the user has bid on 
-    @following_items = AuctionItem.includes(:bids).where("auction_id = ? AND bids.user_id = ?", current_auction.id, @user.id).order('bids.id DESC')
+    # @following_items are AuctionItems that the user has bid on or is following
+    @following_items = get_following_items(@user)
     
     @total_pledged = get_total_pledged(@user, @following_items)
 
-    if @user == current_user
-      @user_name_header = "My"
-    else
-      @user_name_header = @user.name + "'s"
-    end
+    set_header_display(@user)
   end
 
   def create
@@ -92,18 +87,37 @@ class UsersController < ApplicationController
       params.require(:user_info).permit(:school)
     end
 
+    def get_my_posted_items(user)
+      my_posted_items_result = user.auction_items.includes(:bids).where(auction_id: current_auction.id).order('LOWER(name) ASC')
+      my_posted_items_result.paginate(page: params[:page], per_page: 10).order('LOWER(name) ASC')
+    end
+
+    def get_following_items(user)
+      AuctionItem.includes(:bids).where("auction_id = ? AND bids.user_id = ?", current_auction.id, @user.id).order('bids.id DESC')
+    end
+
     def get_total_pledged(user, auction_items)
       total_pledged = 0
 
       auction_items.each do |item|
         last_bid = item.bids.first
         max_bid_amount = item.max_bid
+        if !max_bid_amount.nil?
         if max_bid_amount == last_bid.amount
           total_pledged += max_bid_amount
+        end
         end
       end
 
       total_pledged
+    end
+
+    def set_header_display(user)
+      if user == current_user
+        @user_name_header = "My"
+      else
+        @user_name_header = @user.name + "'s"
+      end
     end
 
     # Before filters

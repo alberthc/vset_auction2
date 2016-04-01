@@ -16,10 +16,4 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port.sub(/:80$/,"")}/#{path.sub}"
   end
 
-  def cache_fetch(cache_key, expire_time, fetch_from_disk)
-    Rails.cache.fetch(cache_key, expires_in: expire_time) do
-      fetch_from_disk.call
-    end
-  end
-
 end

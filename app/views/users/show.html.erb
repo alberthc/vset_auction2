@@ -14,9 +14,9 @@
   </aside>
 </div>
 <div class="row">
-  <h2><%= @user_name_header %> Items Posted</h2>
-  <% if !@my_items.nil? %>
-  <%= will_paginate @my_items %>
+  <h2><%= @user_name_header %> Posted Items</h2>
+  <% if !@my_posted_items.nil? %>
+  <%= will_paginate @my_posted_items %>
   
   <table class="table table-hover table-center">
     <thead>
@@ -29,13 +29,13 @@
       </tr>
     </thead>
     <tbody>
-    <% @my_items.each do |auction_item| %>
-      <%= render 'my_items', auction_item: auction_item %>
+    <% @my_posted_items.each do |auction_item| %>
+      <%= render 'my_posted_items', auction_item: auction_item %>
     <% end %>
     </tbody>
   </table>   
     
-  <%= will_paginate @my_items %>
+  <%= will_paginate @my_posted_items %>
   <% end %>
 </div>
 <div class="row">
