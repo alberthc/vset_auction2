@@ -1,15 +1,26 @@
-<% if !auction_item.bids.first.nil? && auction_item.bids.last.user == @user %>
-  <tr style="height:100px; overflow:hidden;">
+<%
+  if !auction_item.bids.first.nil?
+    my_max_bid = auction_item.bids.first.amount
+  end
+
+  if !my_max_bid.nil? && my_max_bid == auction_item.max_bid
+    bidder = @user
+  else
+    bidder = Bid.where(auction_item: auction_item).order('id DESC').first.user
+  end
+%>
+<% if !bidder.nil? && bidder == @user%>
+<tr style="height:100px; overflow:hidden;">
 <% else %>
-  <tr class="error" style="height:100px; overflow:hidden;">
+<tr class="error" style="height:100px; overflow:hidden;">
 <% end %>
-<td>
-  <%= link_to image_tag(auction_item.image.url(:thumb)), auction_item, title: auction_item.name, data: {caption: auction_item.name}%>
-  <h5 class="text-center"><%= auction_item.name %></h5>
-</td>
-<td><h2><small><%= link_to auction_item.user.name, auction_item.user %></small></h2></td>
-<td><h2><small><%= auction_item.bids.count %></small></h2></td>
-<td><h2><small>$<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %></small></h2></td>
-<td><h2><small><%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %></small></h2></td>
-<td><h2><small>$<%= Bid.where(auction_item: auction_item, user: @user).last.amount %></small></h2></td>
+  <td>
+    <%= link_to image_tag(auction_item.image.url(:thumb)), auction_item, title: auction_item.name, data: {caption: auction_item.name}%>
+    <h5 class="text-center"><%= auction_item.name %></h5>
+  </td>
+  <td><h2><small><%= link_to auction_item.user.name, auction_item.user %></small></h2></td>
+  <td><h2><small><%= auction_item.bids.count %></small></h2></td>
+  <td><h2><small>$<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %></small></h2></td>
+  <td><h2><small><%= bidder.nil? ? "" : (link_to bidder.name, bidder) %></small></h2></td>
+  <td><h2><small>$<%= bidder == @user ? my_max_bid : auction_item.max_bid %></small></h2></td>
 </tr>
