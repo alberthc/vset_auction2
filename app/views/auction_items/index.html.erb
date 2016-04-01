@@ -1,10 +1,13 @@
 <% provide(:title, 'Auction Items') %>
 <h1>Auction Items (<%= @category_name %>)</h1>
 
+<% cache("category_menu") do %>
 <div class="span2">
   <%= render 'shared/category_menu' %>
 </div>
+<% end %>
 
+<% cache(cache_key_for_all_auction_items) do %>
 <div class="span9">
   <%= will_paginate %>
   
@@ -22,7 +25,9 @@
     <tbody>
     <% if !@auction_items.nil? %>
       <% @auction_items.each do |auction_item| %>
+        <% cache(cache_key_for_auction_item(auction_item)) do %>
         <%= render 'auction_item', auction_item: auction_item %>
+        <% end %>
       <% end %>
     <% end %>
     </tbody>
@@ -30,3 +35,4 @@
     
   <%= will_paginate %>
 </div>
+<% end %>

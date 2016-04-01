@@ -1,5 +1,5 @@
 class Bid < ActiveRecord::Base
-  belongs_to :auction_item
+  belongs_to :auction_item, touch: true
   belongs_to :user
 
   validates :user_id, presence: true
