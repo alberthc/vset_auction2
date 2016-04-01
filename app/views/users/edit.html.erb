@@ -14,10 +14,10 @@
 
       <%= fields_for(@user_info) do |ui| %>
 
-      <br/>
-      <%= ui.label :school, 'School' %>
-      <%= ui.select :school, [[UserInfo::USC, UserInfo::USC], [UserInfo::UCLA, UserInfo::UCLA],
-        [UserInfo::UCI, UserInfo::UCI], [UserInfo::OTHER, UserInfo::OTHER]] %>
+        <br>
+        <%= ui.label :school, 'School' %>
+        <%= ui.select :school, [[UserInfo::USC, UserInfo::USC], [UserInfo::UCLA, UserInfo::UCLA],
+          [UserInfo::UCI, UserInfo::UCI], [UserInfo::OTHER, UserInfo::OTHER]] %>
 
       <% end %>
 
