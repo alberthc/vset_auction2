@@ -27,9 +27,9 @@
     <tbody>
     <% if !@auction_items.nil? %>
       <% @auction_items.each do |auction_item| %>
-        <% cache(auction_item) do %>
+        <% #cache(auction_item) do %>
           <%= render 'auction_item', auction_item: auction_item %>
-        <% end %>
+        <% #end %>
       <% end %>
     <% end %>
     </tbody>
