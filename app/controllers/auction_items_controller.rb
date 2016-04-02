@@ -45,10 +45,12 @@ class AuctionItemsController < ApplicationController
 
   def edit
     @auction_item = AuctionItem.find(params[:id])
+    redirect_if_not_permitted(@auction_item.user, auction_items_url)
   end
 
   def update
     @auction_item = AuctionItem.find(params[:id])
+    redirect_if_not_permitted(@auction_item.user, auction_items_url)
     if @auction_item.update_attributes(auction_item_params)
       flash[:success] = "Auction item updated"
       redirect_to @auction_item
@@ -124,7 +126,13 @@ class AuctionItemsController < ApplicationController
 
     def auction_over
       if DateTime.now.to_date >= current_auction.end_time
-	redirect_to :back
+        redirect_to :back
+      end
+    end
+
+    def redirect_if_not_permitted(user, url)
+      if !admin_user? && user != current_user 
+        redirect_to url
       end
     end
 
