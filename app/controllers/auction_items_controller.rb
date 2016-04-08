@@ -35,7 +35,7 @@ class AuctionItemsController < ApplicationController
       @auction_item = auction_item_result.first
       @max_bid = @auction_item.bids.last
       @max_bid_user = @max_bid.user
-      @comments = @auction_item.comments
+      @comments = @auction_item.comments.sort_by { |hsh| hsh[:created_at] }
       #fresh_when last_modified: @auction_item.updated_at.utc, etag: @auction_item
     end
     
