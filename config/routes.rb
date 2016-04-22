@@ -20,6 +20,7 @@ VsetAuction2::Application.routes.draw do
   match '/contact',   to: 'static_pages#contact', via: 'get'
   match '/no-auction',   to: 'static_pages#no_auction', via: 'get'
   match '/category',  to: 'auction_items#category', via: 'get'
+  match '/last_10_bids',  to: 'auction_items#last_10_bids', via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -48,4 +48,5 @@ class AuctionItem < ActiveRecord::Base
   SERVICE = 5
   TECHNOLOGY = 6
   OTHER = 7
+  LAST_10 = 8
 end

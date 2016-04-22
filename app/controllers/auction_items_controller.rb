@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class AuctionItemsController < ApplicationController
   include AuctionItemsHelper
 
@@ -87,6 +89,28 @@ class AuctionItemsController < ApplicationController
         render 'index'
       end
     end
+  end
+
+  def last_10_bids
+    @category_name = "Last 10 Bids"
+    @bids = Bid.all.order('updated_at DESC')
+    @bids.paginate(page: params[:page], per_page: 10)
+    
+    limit = 10
+    @auction_items = Array.new
+    for bid in @bids do
+      auction_item = bid.auction_item
+      if (not @auction_items.include? auction_item) && (auction_item.auction_id == current_auction.id)
+        @auction_items.push auction_item
+      end
+      if @auction_items.length == limit
+        break
+      end
+    end
+
+    @auction_items = @auction_items.paginate(page: params[:page], per_page: 10)
+
+    render 'index'
   end
 
   private
