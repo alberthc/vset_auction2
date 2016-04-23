@@ -15,4 +15,9 @@ module AuctionItemsHelper
     @auction_items = auction_items_result.paginate(page: params[:page], per_page: 20).order('id DESC')
   end
 
+  def get_max_bid_user(auction_item)
+    bids = auction_item.bids.order('id ASC')
+    bids.last.user
+  end
+
 end
