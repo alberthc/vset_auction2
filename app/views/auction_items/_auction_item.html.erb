@@ -7,7 +7,7 @@
 <td><h2><small><%= link_to auction_item.user.name, auction_item.user %></small></h2></td>
 <td><h2><small><%= auction_item.bids.count %></small></h2></td>
 <td><h2><small>$<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %></small></h2></td>
-<td><h2><small><%= auction_item.bids.first.nil? ? "" : (link_to get_max_bid_user(auction_item).name, get_max_bid_user(auction_item)) %></small></h2></td>
+<td><h2><small><%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %></small></h2></td>
 <% end %>
 <td>
   <h3>
