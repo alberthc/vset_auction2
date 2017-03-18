@@ -13,7 +13,13 @@
       <p class="lead"><%= @auction_item.description %></p>
     </div>
   </div>
-  <br/>
+  <% if current_user == @auction_item.user || current_user.admin? %>
+    <h4><%= link_to "Edit Item", edit_auction_item_path(@auction_item) %>
+  <% end %>
+  <% if current_user.admin? %>
+    | <%= link_to "Delete", @auction_item, method: :delete,
+                            data: { confirm: "You sure?" } %></h4>
+  <% end %>
   <div class="row">
     <h4><strong>Posted by: </strong><%= link_to @auction_item.user.name, @auction_item.user %></h4>
     <h4><strong>Starting bid: </strong>$<%= @auction_item.min_bid %></h4>
