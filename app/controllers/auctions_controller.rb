@@ -1,5 +1,5 @@
 class AuctionsController < ApplicationController
-  before_action :admin_user,	 only: [:new, :create, :edit, :index, :destroy]
+  before_action :admin_user, only: [:new, :create, :edit, :index, :destroy]
 
   def new
     @auction = Auction.new
@@ -11,6 +11,7 @@ class AuctionsController < ApplicationController
   end
 
   def create
+    auction_params[:active] = true
     @auction = current_user.auctions.build(auction_params)
     @auction_stat = @auction.build_auction_stat(auction_stat_params)
     if @auction.save && @auction_stat.save
