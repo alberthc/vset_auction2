@@ -85,14 +85,14 @@ class AuctionItemsController < ApplicationController
       else
         category_items_query = "auction_id = ? AND category = ?"
         auction_items_result = AuctionItem.includes(:bids).where(category_items_query, current_auction.id, category_id)
-        @auction_items = auction_items_result.paginate(page: params[:page], per_page: 12).order('id DESC')
+        @auction_items = auction_items_result.paginate(page: params[:page], per_page: 15).order('id DESC')
         render 'index'
       end
     end
   end
 
   def last_10_bids
-    @category_name = "Last 10 Bids"
+    @category_name = "Last 12 Bids"
     @bids = Bid.all.order('updated_at DESC')
     @bids.paginate(page: params[:page], per_page: 12)
     
