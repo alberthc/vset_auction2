@@ -4,39 +4,55 @@
   <h1><%= @auction_item.name %></h1>
   <br><br>
 </div>
+
 <div class="row">
-  <div class="span4">
+  <div class="col-sm-offset-1 col-sm-4">
     <%= image_tag @auction_item.image.url(:medium) %>
   </div>
-  <div class="span8">
+  <div class="col-sm-6">
     <p class="lead"><%= @auction_item.description %></p>
   </div>
 </div>
-<% if current_user == @auction_item.user || current_user.admin? %>
-  <h4><%= link_to "Edit Item", edit_auction_item_path(@auction_item) %>
-<% end %>
-<% if current_user.admin? %>
-  | <%= link_to "Delete", @auction_item, method: :delete,
-                          data: { confirm: "You sure?" } %></h4>
-<% end %>
+
 <div class="row">
-  <h4><strong>Posted by: </strong><%= link_to @auction_item.user.name, @auction_item.user %></h4>
-  <h4><strong>Starting bid: </strong>$<%= @auction_item.min_bid %></h4>
-  <h4><strong>Minimum increment: </strong>$<%= @auction_item.min_incr %></h4>
-  <% if @max_bid.nil? %>
-    <h4>No bids yet!</h4>
-  <% else %>
-    <br>
-    <h4><strong>Bid to beat: </strong>$<%= @max_bid.amount %> by <%= link_to @max_bid.user.name, @max_bid.user %></h4>
-    <br>
-  <% end %>
-</div>
-<div class="row">
-  <% if DateTime.now.to_date < current_auction.end_time %>
-    <%= render 'shared/create_bid_form' %>
-  <% else %>
-    <%= render 'stats' %>
-  <% end %>
+  <div class="col-sm-offset-1">
+    <% if current_user == @auction_item.user || current_user.admin? %>
+      <h4><%= link_to "Edit Item", edit_auction_item_path(@auction_item) %>
+    <% end %>
+    <% if current_user.admin? %>
+      | <%= link_to "Delete", @auction_item, method: :delete,
+                              data: { confirm: "You sure?" } %></h4>
+    <% end %>
+  </div>
 </div>
 
-  <%= render 'shared/comments' %>
+<div class="row">
+  <div class="col-sm-offset-1">
+    <h4><strong>Posted by: </strong><%= link_to @auction_item.user.name, @auction_item.user %></h4>
+    <h4><strong>Starting bid: </strong>$<%= @auction_item.min_bid %></h4>
+    <h4><strong>Minimum increment: </strong>$<%= @auction_item.min_incr %></h4>
+    <% if @max_bid.nil? %>
+      <h4>No bids yet!</h4>
+    <% else %>
+      <br>
+      <h4><strong>Bid to beat: </strong>$<%= @max_bid.amount %> by <%= link_to @max_bid.user.name, @max_bid.user %></h4>
+      <br>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-offset-1">
+    <% if DateTime.now.to_date < current_auction.end_time %>
+      <%= render 'shared/create_bid_form' %>
+    <% else %>
+      <%= render 'stats' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-offset-1">
+    <%= render 'shared/comments' %>
+  </div>
+</div>
