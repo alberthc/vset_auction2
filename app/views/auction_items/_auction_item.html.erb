@@ -1,5 +1,5 @@
 <div class="row">
-<div class="box panel panel-default">
+<div class="box panel">
   <% cache(auction_item) do %>
     <div class="hidden-xs">
     <%= link_to image_tag(auction_item.image.url(:square), class: "img-responsive center-block"), auction_item, title: auction_item.name, data: {caption: auction_item.name}%>
