@@ -1,6 +1,6 @@
-<div class="row box">
-<div class="panel panel-default">
-  <% #cache(auction_item) do %>
+<div class="row">
+<div class="box panel panel-default">
+  <% cache(auction_item) do %>
     <div class="hidden-xs">
     <%= link_to image_tag(auction_item.image.url(:square), class: "img-responsive center-block"), auction_item, title: auction_item.name, data: {caption: auction_item.name}%>
     </div>
@@ -9,9 +9,13 @@
     </div>
     <h4 class="text-center"><strong><%= link_to auction_item.name, auction_item, class: "auction-item-title" %></strong></h4>
     <h4 class="text-center"><small>By <%= link_to auction_item.user.name, auction_item.user %></small></h4>
+    <% if auction_item.max_bid.nil? %>
+      <h4><strong>Starting Bid: </strong>$<%= auction_item.min_bid %></h4>
+    <% else %>
+      <h4><strong>Current Bid: </strong>$<%= auction_item.max_bid %></h4>
+    <% end %>
     <h5><strong># Bids: </strong><%= auction_item.bids.count %></h5>
     <h5><strong>Leader: </strong><%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %></h5>
-    <h5><strong>Bid: </strong>$<%= auction_item.max_bid.nil? ? auction_item.min_bid : auction_item.max_bid %></h5>
-  <% #end %>
+  <% end %>
 </div>
 </div>
