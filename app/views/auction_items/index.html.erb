@@ -3,14 +3,14 @@
 
 <div class="row">
   <div class="col-sm-2 left-menu">
+    <% cache("category_menu-v2") do %>
     <div class="row">
-      <% cache("category_menu-v2") do %>
         <%= render 'shared/category_menu' %>
-      <% end %>
     </div>
     <div class="row">
       <div id="clock"></div>
     </div>
+    <% end %>
   </div>
 
   <% if @auction_items.nil? %>
