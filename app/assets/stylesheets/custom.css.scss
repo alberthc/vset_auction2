@@ -264,3 +264,9 @@ input {
 .table-center td {
   text-align: center;
 }
+
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

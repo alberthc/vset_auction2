@@ -7,7 +7,7 @@
     <div class="visible-xs">
     <%= link_to image_tag(auction_item.image.url(:thumb), class: "img-responsive center-block"), auction_item, title: auction_item.name, data: {caption: auction_item.name}%>
     </div>
-    <h4 class="text-center"><strong><%= link_to auction_item.name, auction_item, class: "auction-item-title" %></strong></h4>
+    <h4 class="text-center nowrap"><strong><%= link_to auction_item.name, auction_item, class: "auction-item-title" %></strong></h4>
     <h4 class="text-center"><small>By <%= link_to auction_item.user.name, auction_item.user %></small></h4>
     <% if auction_item.max_bid.nil? %>
       <h4><strong>Starting Bid: </strong>$<%= auction_item.min_bid %></h4>
