@@ -9,13 +9,13 @@
   <%= render 'layouts/shim' %>
 </head>
 <body>
-  <div class="row">
-    <div class="col-sm-offset-2">
-      <div id="clock"></div>
-    </div>
-  </div>
   <%= render 'layouts/header' %>
   <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-offset-2">
+        <div id="clock"></div>
+      </div>
+    </div>
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
