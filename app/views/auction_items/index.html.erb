@@ -3,7 +3,7 @@
 
 <% cache("category_menu") do %>
 <div class="row">
-<div class="col-sm-offset-1 col-sm-2">
+<div class="col-sm-2">
   <%= render 'shared/category_menu' %>
 </div>
 <% end %>
@@ -11,7 +11,7 @@
 <% if @auction_items.nil? %>
   <% get_all_auction_items %>
 <% end %>
-<div class="col-sm-8">
+<div class="col-sm-9">
   <%= will_paginate %>
 
   <% pos = 0 %> 
