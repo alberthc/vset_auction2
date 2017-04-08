@@ -19,10 +19,9 @@ module CacheHelper
   end
 
   def cache_key_for_current_auction_stats(auction)
-    count = AuctionItem.count
-    max_updated_at = AuctionItem.maximum(:updated_at).try(:utc).try(:to_s, :number)
-    auction_updated_at = auction.updated_at.try(:utc).try(:to_s, :number)
-    "auctions/current/stats-#{count}-#{max_updated_at}-#{auction_updated_at}"
+    id = auction.id
+    items_last_updated = auction.auction_items.maximum(:updated_at).try(:utc).try(:to_s, :number)
+    "auctions/current/stats-#{id}-#{items_last_updated}"
   end
 
   def cache_key_for_current_user
