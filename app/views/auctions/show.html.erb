@@ -5,7 +5,7 @@
 <%= link_to "Enter auction", auction_items_path, class: "btn btn-large btn-primary" %>
 </div>
 <br/>
-<% cache(cache_key_for_current_auction_stats) do %>
+<% cache(cache_key_for_current_auction_stats @auction) do %>
 <% calculate_stats %>
 <div class="center hero-unit">
   <p>Total items posted: <%= @auction_items.count %></p>
