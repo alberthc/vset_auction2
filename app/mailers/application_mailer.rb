@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'vsetauctionmailer@gmail.com'
+  default from: 'vsetauctionmail@gmail.com'
   layout 'mailer'
 
   def path_to_url(path)
