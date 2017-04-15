@@ -85,7 +85,7 @@ class AuctionItemsController < ApplicationController
       else
         category_items_query = "auction_id = ? AND category = ?"
         auction_items_result = AuctionItem.includes(:bids).where(category_items_query, current_auction.id, category_id)
-        @auction_items = auction_items_result.paginate(page: params[:page], per_page: 15).order('id DESC')
+        @auction_items = auction_items_result.paginate(page: params[:page], per_page: DEFAULT_NUM_GRID_ITEMS_PER_PAGE).order('id DESC')
         render 'index'
       end
     end
