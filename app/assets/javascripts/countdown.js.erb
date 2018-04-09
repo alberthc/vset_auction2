@@ -1,34 +1,34 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
-function getTimeRemaining(endTime) {
-    var t = Date.parse(endTime) - Date.parse(new Date());
-    var seconds = Math.floor( (t/1000) % 60 );
-    var minutes = Math.floor( (t/1000/60) % 60 );
-    var hours = Math.floor( (t/(1000*60*60)) % 24);
-    var days = Math.floor( (t/(1000*60*60*24)));
-    return {
-        'total': t,
-        'days': days,
-        'hours': hours,
-        'minutes': minutes,
-        'seconds': seconds
-    }
-}
-
-function initializeClock(id, endTime) {
-    var clock = document.getElementById(id);
-    var timeInterval = setInterval(function(){
-        var t = getTimeRemaining(endTime);
-        console.debug(t.seconds);
-        clock.innerHTML = "" + t.days + "d " + t.hours + "h " + t.minutes + "m " + t.seconds + "s";
-        if (t.total <= 0) {
-            clearInterval(timeInterval);
-        } 
-    }, 1000);
-}
-
-var deadline = 'May 1 2017'
-
-initializeClock('clock', deadline);
+  function getTimeRemaining(endTime) {
+      const t = Date.parse(endTime) - Date.parse(new Date());
+      const seconds = Math.floor( (t/1000) % 60 );
+      const minutes = Math.floor( (t/1000/60) % 60 );
+      const hours = Math.floor( (t/(1000*60*60)) % 24);
+      const days = Math.floor( (t/(1000*60*60*24)));
+      return {
+          'total': t,
+          'days': days,
+          'hours': hours,
+          'minutes': minutes,
+          'seconds': seconds
+      }
+  }
+  
+  function initializeClock(id, endTime) {
+      const clock = document.getElementById(id);
+      const timeInterval = setInterval(function() {
+          const t = getTimeRemaining(endTime);
+          console.debug(t.seconds);
+          clock.innerHTML = "" + t.days + "d " + t.hours + "h " + t.minutes + "m " + t.seconds + "s";
+          if (t.total <= 0) {
+              clearInterval(timeInterval);
+          } 
+      }, 1000);
+  }
+  
+  const deadline = 'April 29 2018'
+  
+  initializeClock('clock', deadline);
 
 });
