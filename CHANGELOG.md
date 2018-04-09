@@ -1,4 +1,6 @@
 ## Unreleased
+- File: .ruby-version
+- Update banner to 2018
 
 ## Release v1.0.0
 ### Added
