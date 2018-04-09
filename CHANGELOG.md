@@ -1,7 +1,7 @@
 ## Unreleased
 - File: .ruby-version
 - Update banner to 2018
-- Update countdown
+- Comment out countdown
 
 ## Release v1.0.0
 ### Added
