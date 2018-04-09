@@ -2,6 +2,10 @@
 
 # Releases
 
+## v1.1.1
+### Fixed
+- Remove last 12 bids
+
 ## v1.1.0
 ### Added
 - File: .ruby-version
