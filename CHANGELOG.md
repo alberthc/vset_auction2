@@ -2,6 +2,14 @@
 
 # Releases
 
+## v1.1.3
+### Fixed
+- Fix winning user display in all auction items view
+
+## v1.1.2
+### Fixed
+- Order bids by amount rather than id to fix race condition
+
 ## v1.1.1
 ### Fixed
 - Remove last 12 bids
