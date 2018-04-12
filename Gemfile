@@ -62,6 +62,7 @@ gem 'jquery-countdown-rails'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'jquery-turbolinks'
+gem 'rake', '10.4.2'
 
 # Use unicorn as the app server
 # gem 'unicorn'
