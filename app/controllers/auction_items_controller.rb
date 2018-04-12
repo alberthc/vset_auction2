@@ -28,7 +28,7 @@ class AuctionItemsController < ApplicationController
   def show
     auction_item_id = params[:id]
     auction_item_query = "comments.auction_item_id = ? OR bids.auction_item_id = ?"
-    auction_item_result = AuctionItem.includes(:comments, :bids).where(auction_item_query, auction_item_id, auction_item_id).order('bids.id ASC').references(:comments, :bids)
+    auction_item_result = AuctionItem.includes(:comments, :bids).where(auction_item_query, auction_item_id, auction_item_id).order('bids.amount ASC').references(:comments, :bids)
 
     if auction_item_result.nil? || auction_item_result.length == 0
       @auction_item = AuctionItem.find(auction_item_id)
