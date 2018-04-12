@@ -1,4 +1,6 @@
 ## Unreleased
+### Fixed
+- Fix issue with winning bidder in User profile
 
 # Releases
 
