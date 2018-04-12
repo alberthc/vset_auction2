@@ -1,8 +1,10 @@
 ## Unreleased
-### Fixed
-- Fix issue with winning bidder in User profile
 
 # Releases
+
+## v1.1.5
+### Fixed
+- Fix issue with winning bidder in User profile
 
 ## v1.1.4
 ### Fixed
