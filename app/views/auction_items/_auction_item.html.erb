@@ -14,8 +14,10 @@
     <% else %>
       <h4><strong>Current Bid: </strong>$<%= auction_item.max_bid %></h4>
     <% end %>
-    <h5><strong># Bids: </strong><%= auction_item.bids.count %></h5>
-    <h5><strong>Leader: </strong><%= auction_item.bids.first.nil? ? "" : (link_to auction_item.bids.last.user.name, auction_item.bids.last.user) %></h5>
+    <% bids = auction_item.bids.order('amount ASC') %>
+    <% current_winner = bids.last.user %>
+    <h5><strong># Bids: </strong><%= bids.count %></h5>
+    <h5><strong>Leader: </strong><%= bids.first.nil? ? "" : (link_to current_winner.name, current_winner) %></h5>
   <% end %>
 </div>
 </div>
