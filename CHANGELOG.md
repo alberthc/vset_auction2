@@ -1,4 +1,6 @@
 ## Unreleased
+### Fixed
+- Fix issue with bug when no bids on item
 
 # Releases
 
