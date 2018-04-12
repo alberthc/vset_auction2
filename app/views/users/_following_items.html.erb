@@ -6,7 +6,7 @@
   if !my_max_bid.nil? && my_max_bid == auction_item.max_bid
     bidder = @user
   else
-    bidder = Bid.where(auction_item: auction_item).order('id DESC').first.user
+    bidder = Bid.where(auction_item: auction_item).order('amount DESC').first.user
   end
 %>
 <% if !bidder.nil? && bidder == @user%>

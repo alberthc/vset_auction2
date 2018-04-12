@@ -16,7 +16,7 @@ module AuctionItemsHelper
   end
 
   def get_max_bid_user(auction_item)
-    bids = auction_item.bids.order('id ASC')
+    bids = auction_item.bids.order('amount ASC')
     bids.last.user
   end
 
