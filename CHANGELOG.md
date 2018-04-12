@@ -1,8 +1,10 @@
 ## Unreleased
-### Fixed
-- Fix issue with bug when no bids on item
 
 # Releases
+
+## v1.1.4
+### Fixed
+- Fix issue with bug when no bids on item
 
 ## v1.1.3
 ### Fixed

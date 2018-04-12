@@ -20,7 +20,7 @@
       <h5><strong>Leader: </strong></h5>
     <% else %>
       <% current_winner = bids.last.user %>
-      <h5><strong>Leader: </strong><% (link_to current_winner.name, current_winner) %></h5>
+      <h5><strong>Leader: </strong><%= (link_to current_winner.name, current_winner) %></h5>
     <% end %>
   <% end %>
 </div>
