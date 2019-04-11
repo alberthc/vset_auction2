@@ -2,6 +2,10 @@
 
 # Releases
 
+## v1.1.6
+### Changed
+- Prepare for 2019
+
 ## v1.1.5
 ### Fixed
 - Fix issue with winning bidder in User profile
